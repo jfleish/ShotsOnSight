@@ -2,14 +2,12 @@ import { useGameEngine } from '@/hooks/useGameEngine';
 import { HeaderBar } from '@/components/game/HeaderBar';
 import { WinProbCard } from '@/components/game/WinProbCard';
 import { AlertOverlay } from '@/components/game/AlertOverlay';
-import { PlayerPanel } from '@/components/game/PlayerPanel';
-import { Leaderboard } from '@/components/game/Leaderboard';
 import { ControlPanel } from '@/components/game/ControlPanel';
 import { PlayFeed } from '@/components/game/PlayFeed';
 import { TEAMS, TOTAL_DURATION } from '@/data/demoGame';
 import { AlertTriangle } from 'lucide-react';
 
-const Index = () => {
+const ConsumerApp = () => {
   const {
     gameState,
     currentFrameData,
@@ -46,13 +44,13 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Alert Overlay */}
-      <AlertOverlay 
-        alert={gameState.currentAlert} 
+      <AlertOverlay
+        alert={gameState.currentAlert}
         onDismiss={clearAlert}
       />
 
       {/* Header */}
-      <HeaderBar 
+      <HeaderBar
         elapsedTime={gameState.elapsedTime}
         totalDuration={TOTAL_DURATION}
         isPlaying={gameState.isPlaying}
@@ -60,9 +58,9 @@ const Index = () => {
 
       {/* Main Content */}
       <main className="container py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* Left Column - Main Game Info */}
-          <div className="lg:col-span-8 space-y-6">
+        <div className="grid grid-cols-1 gap-6 max-w-4xl mx-auto">
+          {/* Main Game Info - Full Width */}
+          <div className="space-y-6">
             {/* Win Probability */}
             <WinProbCard
               winProb={currentFrameData.win_prob}
@@ -76,7 +74,7 @@ const Index = () => {
             />
 
             {/* Play Feed */}
-            <PlayFeed 
+            <PlayFeed
               currentFrame={currentFrameData}
               description={currentFrameData.description}
             />
@@ -85,7 +83,7 @@ const Index = () => {
             <ControlPanel
               isPlaying={gameState.isPlaying}
               isPaused={gameState.isPaused}
-              canStart={gameState.players.length > 0}
+              canStart={true} // Always allow start since config is done in lobby
               onStart={startGame}
               onPause={pauseGame}
               onResume={resumeGame}
@@ -103,30 +101,13 @@ const Index = () => {
                   {TEAMS.home.name} {currentFrameData.home} - {currentFrameData.away} {TEAMS.away.name}
                 </p>
                 <p className="text-muted-foreground">
-                  {currentFrameData.home > currentFrameData.away 
+                  {currentFrameData.home > currentFrameData.away
                     ? `${TEAMS.home.city} ${TEAMS.home.name} win!`
                     : `${TEAMS.away.city} ${TEAMS.away.name} win!`
                   }
                 </p>
               </div>
             )}
-          </div>
-
-          {/* Right Column - Players & Leaderboard */}
-          <div className="lg:col-span-4 space-y-6">
-            {/* Player Panel */}
-            <PlayerPanel
-              players={gameState.players}
-              onAddPlayer={addPlayer}
-              onRemovePlayer={removePlayer}
-              disabled={gameState.isPlaying}
-            />
-
-            {/* Leaderboard */}
-            <Leaderboard 
-              players={gameState.players}
-              isGameOver={isGameOver}
-            />
           </div>
         </div>
 
@@ -142,4 +123,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default ConsumerApp;
