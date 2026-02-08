@@ -2,105 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
-/* SOS: Shot On Sight - Sports Broadcast Design System */
+/* SOS: Shot On Sight - Bold Sports Party Design System */
+/* Inspired by logo: Red, Black, Gold with fiery energy */
 
 @layer base {
   :root {
-    /* Core dark theme - broadcast inspired */
-    --background: 220 20% 6%;
-    --foreground: 0 0% 98%;
+    /* Core dark theme - rich black base */
+    --background: 0 0% 5%;
+    --foreground: 45 20% 95%;
 
-    --card: 220 18% 10%;
-    --card-foreground: 0 0% 98%;
+    --card: 0 0% 8%;
+    --card-foreground: 45 20% 95%;
 
-    --popover: 220 18% 12%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 45 20% 95%;
 
-    /* Neon lime for positive momentum / wins */
-    --primary: 142 76% 50%;
-    --primary-foreground: 220 20% 6%;
+    /* Primary: Bold Red from logo */
+    --primary: 0 85% 50%;
+    --primary-foreground: 0 0% 100%;
 
     /* Muted grays for secondary elements */
-    --secondary: 220 14% 18%;
+    --secondary: 0 0% 14%;
     --secondary-foreground: 0 0% 85%;
 
-    --muted: 220 14% 14%;
-    --muted-foreground: 220 10% 55%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 50%;
 
-    /* Electric accent for highlights */
-    --accent: 45 100% 55%;
-    --accent-foreground: 220 20% 6%;
+    /* Accent: Beer gold from logo */
+    --accent: 42 100% 50%;
+    --accent-foreground: 0 0% 5%;
 
-    /* Alert/danger - shots */
-    --destructive: 0 85% 55%;
-    --destructive-foreground: 0 0% 98%;
+    /* Alert/danger - bright red */
+    --destructive: 0 90% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 220 14% 20%;
-    --input: 220 14% 18%;
-    --ring: 142 76% 50%;
+    --border: 0 0% 18%;
+    --input: 0 0% 14%;
+    --ring: 0 85% 50%;
 
     --radius: 0.75rem;
 
-    /* Team colors */
-    --team-home: 220 90% 55%;
-    --team-away: 0 80% 55%;
-    --team-home-muted: 220 60% 25%;
-    --team-away-muted: 0 50% 25%;
+    /* Team colors - Seahawks (Green/Navy) vs Patriots (Navy/Red) */
+    --team-home: 146 50% 40%;
+    --team-away: 220 60% 35%;
+    --team-home-muted: 146 40% 20%;
+    --team-away-muted: 220 40% 18%;
 
-    /* Drink tier colors */
-    --drink-sip: 142 76% 50%;
-    --drink-shot: 0 85% 55%;
-    --drink-shotgun: 45 100% 55%;
+    /* Drink tier colors - matching logo palette */
+    --drink-sip: 42 100% 50%;
+    --drink-shot: 0 85% 50%;
+    --drink-shotgun: 25 100% 55%;
 
     /* Win probability */
-    --win-positive: 142 76% 50%;
-    --win-negative: 0 85% 55%;
-    --win-neutral: 220 10% 55%;
+    --win-positive: 142 70% 45%;
+    --win-negative: 0 85% 50%;
+    --win-neutral: 0 0% 50%;
 
     /* Momentum chart */
-    --chart-home: 220 90% 55%;
-    --chart-away: 0 80% 55%;
-    --chart-grid: 220 14% 20%;
+    --chart-home: 146 50% 40%;
+    --chart-away: 220 60% 35%;
+    --chart-grid: 0 0% 18%;
+
+    /* Fire gradient colors */
+    --fire-orange: 25 100% 50%;
+    --fire-yellow: 45 100% 55%;
+    --fire-red: 0 90% 50%;
 
     /* Sidebar defaults */
-    --sidebar-background: 220 18% 8%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-primary: 142 76% 50%;
-    --sidebar-primary-foreground: 220 20% 6%;
-    --sidebar-accent: 220 14% 16%;
-    --sidebar-accent-foreground: 0 0% 90%;
-    --sidebar-border: 220 14% 20%;
-    --sidebar-ring: 142 76% 50%;
+    --sidebar-background: 0 0% 6%;
+    --sidebar-foreground: 45 20% 90%;
+    --sidebar-primary: 0 85% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 14%;
+    --sidebar-accent-foreground: 45 20% 90%;
+    --sidebar-border: 0 0% 18%;
+    --sidebar-ring: 0 85% 50%;
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(220 20% 6%) 0%, hsl(220 25% 12%) 100%);
-    --gradient-card: linear-gradient(180deg, hsl(220 18% 12%) 0%, hsl(220 18% 8%) 100%);
-    --gradient-alert: linear-gradient(135deg, hsl(0 85% 55%) 0%, hsl(0 90% 40%) 100%);
-    --gradient-shotgun: linear-gradient(135deg, hsl(45 100% 55%) 0%, hsl(30 100% 45%) 100%);
-    --gradient-win: linear-gradient(90deg, hsl(220 90% 55%) 0%, hsl(142 76% 50%) 100%);
+    /* Gradients - fiery and bold */
+    --gradient-hero: linear-gradient(135deg, hsl(0 0% 5%) 0%, hsl(0 0% 10%) 50%, hsl(0 50% 8%) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 10%) 0%, hsl(0 0% 6%) 100%);
+    --gradient-alert: linear-gradient(135deg, hsl(0 90% 50%) 0%, hsl(0 90% 35%) 100%);
+    --gradient-shotgun: linear-gradient(135deg, hsl(42 100% 50%) 0%, hsl(25 100% 45%) 100%);
+    --gradient-fire: linear-gradient(90deg, hsl(0 90% 50%) 0%, hsl(25 100% 50%) 50%, hsl(45 100% 55%) 100%);
+    --gradient-win: linear-gradient(90deg, hsl(146 50% 40%) 0%, hsl(142 70% 45%) 100%);
   }
 
-  /* Dark mode is default, but keep the class for consistency */
+  /* Dark mode is default */
   .dark {
-    --background: 220 20% 6%;
-    --foreground: 0 0% 98%;
-    --card: 220 18% 10%;
-    --card-foreground: 0 0% 98%;
-    --popover: 220 18% 12%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 142 76% 50%;
-    --primary-foreground: 220 20% 6%;
-    --secondary: 220 14% 18%;
+    --background: 0 0% 5%;
+    --foreground: 45 20% 95%;
+    --card: 0 0% 8%;
+    --card-foreground: 45 20% 95%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 45 20% 95%;
+    --primary: 0 85% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 14%;
     --secondary-foreground: 0 0% 85%;
-    --muted: 220 14% 14%;
-    --muted-foreground: 220 10% 55%;
-    --accent: 45 100% 55%;
-    --accent-foreground: 220 20% 6%;
-    --destructive: 0 85% 55%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 220 14% 20%;
-    --input: 220 14% 18%;
-    --ring: 142 76% 50%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 50%;
+    --accent: 42 100% 50%;
+    --accent-foreground: 0 0% 5%;
+    --destructive: 0 90% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 18%;
+    --input: 0 0% 14%;
+    --ring: 0 85% 50%;
   }
 }
 
@@ -118,15 +125,15 @@
 @layer utilities {
   /* Glow effects */
   .glow-primary {
-    box-shadow: 0 0 20px hsl(var(--primary) / 0.4), 0 0 40px hsl(var(--primary) / 0.2);
+    box-shadow: 0 0 20px hsl(var(--primary) / 0.5), 0 0 40px hsl(var(--primary) / 0.3);
   }
   
   .glow-destructive {
-    box-shadow: 0 0 20px hsl(var(--destructive) / 0.4), 0 0 40px hsl(var(--destructive) / 0.2);
+    box-shadow: 0 0 20px hsl(var(--destructive) / 0.5), 0 0 40px hsl(var(--destructive) / 0.3);
   }
   
   .glow-accent {
-    box-shadow: 0 0 20px hsl(var(--accent) / 0.4), 0 0 40px hsl(var(--accent) / 0.2);
+    box-shadow: 0 0 25px hsl(var(--accent) / 0.5), 0 0 50px hsl(var(--accent) / 0.3);
   }
 
   .glow-team-home {
@@ -135,6 +142,14 @@
 
   .glow-team-away {
     box-shadow: 0 0 15px hsl(var(--team-away) / 0.5);
+  }
+
+  /* Fire glow for logo and special elements */
+  .glow-fire {
+    box-shadow: 
+      0 0 20px hsl(var(--fire-orange) / 0.4),
+      0 0 40px hsl(var(--fire-red) / 0.3),
+      0 0 60px hsl(var(--fire-yellow) / 0.2);
   }
 
   /* Text shadows for broadcast feel */
