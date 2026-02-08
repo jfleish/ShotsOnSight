@@ -44,15 +44,29 @@ export function HeaderBar({ elapsedTime, totalDuration, isPlaying }: HeaderBarPr
           </div>
 
           {/* Teams */}
-          <div className="hidden md:flex items-center gap-6">
-            <div className="text-right">
-              <p className="text-xs text-muted-foreground uppercase tracking-wide">{TEAMS.home.city}</p>
-              <p className="text-lg font-bold text-team-home">{TEAMS.home.name}</p>
+          <div className="hidden md:flex items-center gap-8">
+            <div className="flex items-center gap-3">
+              <img 
+                src={TEAMS.home.logo} 
+                alt={TEAMS.home.name} 
+                className="w-12 h-12 object-contain"
+              />
+              <div className="text-right">
+                <p className="text-xs text-muted-foreground uppercase tracking-wide">{TEAMS.home.city}</p>
+                <p className="text-lg font-bold text-team-home">{TEAMS.home.name}</p>
+              </div>
             </div>
             <div className="text-2xl font-display text-muted-foreground">VS</div>
-            <div className="text-left">
-              <p className="text-xs text-muted-foreground uppercase tracking-wide">{TEAMS.away.city}</p>
-              <p className="text-lg font-bold text-team-away">{TEAMS.away.name}</p>
+            <div className="flex items-center gap-3">
+              <div className="text-left">
+                <p className="text-xs text-muted-foreground uppercase tracking-wide">{TEAMS.away.city}</p>
+                <p className="text-lg font-bold text-team-away">{TEAMS.away.name}</p>
+              </div>
+              <img 
+                src={TEAMS.away.logo} 
+                alt={TEAMS.away.name} 
+                className="w-12 h-12 object-contain"
+              />
             </div>
           </div>
 

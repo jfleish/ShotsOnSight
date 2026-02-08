@@ -1,5 +1,6 @@
 import { cn } from '@/lib/utils';
 import { ArrowUp, ArrowDown, Minus } from 'lucide-react';
+import { TEAMS } from '@/data/demoGame';
 
 interface WinProbCardProps {
   winProb: number;
@@ -49,15 +50,31 @@ export function WinProbCard({
       {/* Scoreboard */}
       <div className="bg-muted/50 border-b border-border p-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="text-center">
-              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">{homeName}</p>
-              <p className="text-4xl font-display text-team-home">{homeScore}</p>
+          <div className="flex items-center gap-6">
+            {/* Home Team */}
+            <div className="flex items-center gap-3">
+              <img 
+                src={TEAMS.home.logo} 
+                alt={homeName} 
+                className="w-14 h-14 object-contain"
+              />
+              <div className="text-center">
+                <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">{homeName}</p>
+                <p className="text-4xl font-display text-team-home">{homeScore}</p>
+              </div>
             </div>
             <div className="text-lg text-muted-foreground font-bold">–</div>
-            <div className="text-center">
-              <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">{awayName}</p>
-              <p className="text-4xl font-display text-team-away">{awayScore}</p>
+            {/* Away Team */}
+            <div className="flex items-center gap-3">
+              <div className="text-center">
+                <p className="text-xs text-muted-foreground uppercase tracking-wide mb-1">{awayName}</p>
+                <p className="text-4xl font-display text-team-away">{awayScore}</p>
+              </div>
+              <img 
+                src={TEAMS.away.logo} 
+                alt={awayName} 
+                className="w-14 h-14 object-contain"
+              />
             </div>
           </div>
           <div className="text-right">
