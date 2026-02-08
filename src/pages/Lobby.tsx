@@ -44,8 +44,13 @@ export default function Lobby() {
     };
 
     const handleStartGame = () => {
-        // TODO: Pass selections to game via state/context
-        navigate('/app');
+        navigate('/app', {
+            state: {
+                brand: selectedBrand,
+                team: selectedTeam,
+                focusPlayers: selectedPlayers
+            }
+        });
     };
 
     return (

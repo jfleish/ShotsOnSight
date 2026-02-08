@@ -29,7 +29,7 @@ export function useGameEngine() {
         setIsLoading(false);
       }
     };
-    
+
     loadData();
   }, []);
 
@@ -40,17 +40,25 @@ export function useGameEngine() {
   const prevFrameData = gameState.currentFrame > 0 ? gameState.frames[gameState.currentFrame - 1] : null;
 
   // Calculate win probability delta
-  const winProbDelta = prevFrameData 
-    ? currentFrameData.win_prob - prevFrameData.win_prob 
+  const winProbDelta = prevFrameData
+    ? currentFrameData.win_prob - prevFrameData.win_prob
     : 0;
 
   // Add a player
-  const addPlayer = useCallback((name: string, team: Team, mode: 'casual' | 'savage' | 'dd') => {
+  const addPlayer = useCallback((
+    name: string,
+    team: Team,
+    mode: 'casual' | 'savage' | 'dd',
+    beerBrand: string = 'Bud Light',
+    focusedOn: string = 'None'
+  ) => {
     const player: Player = {
       id: generateId(),
       name,
       team,
       mode,
+      beerBrand,
+      focusedOn,
       sips: 0,
       shots: 0,
       shotguns: 0,
@@ -142,7 +150,7 @@ export function useGameEngine() {
       if (drinkType && prev.players.length > 0) {
         // Determine losing team (team with lower win prob gets targeted)
         const losingTeam: Team = currentData.win_prob > 0.5 ? 'away' : 'home';
-        
+
         // Check rate limiting
         const lastDrink = lastDrinkTimeRef.current;
         let finalDrinkType = drinkType;
@@ -162,10 +170,10 @@ export function useGameEngine() {
 
         // Select target
         const targets = selectTargets(prev.players, losingTeam, finalDrinkType);
-        
+
         if (targets.length > 0) {
           const target = targets[0];
-          
+
           // Apply mode multiplier - casual has 50% chance to skip
           if (target.mode === 'casual' && Math.random() > MODE_MULTIPLIERS.casual * 2) {
             // Skip drink for casual mode
@@ -227,7 +235,7 @@ export function useGameEngine() {
   // Start game
   const startGame = useCallback(() => {
     if (gameState.players.length === 0) return;
-    
+
     setGameState(prev => ({
       ...prev,
       isPlaying: true,

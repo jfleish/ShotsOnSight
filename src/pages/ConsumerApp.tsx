@@ -6,6 +6,8 @@ import { ControlPanel } from '@/components/game/ControlPanel';
 import { PlayFeed } from '@/components/game/PlayFeed';
 import { TEAMS, TOTAL_DURATION } from '@/data/demoGame';
 import { AlertTriangle } from 'lucide-react';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ConsumerApp = () => {
   const {
@@ -21,6 +23,26 @@ const ConsumerApp = () => {
     resetGame,
     skipFrame,
   } = useGameEngine();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { brand, team, focusPlayers } = location.state || {};
+
+  useEffect(() => {
+    // If no state (direct access), redirect to lobby
+    if (!brand || !team) {
+      if (gameState.players.length === 0) {
+        navigate('/lobby');
+      }
+      return;
+    }
+
+    // Initialize player if not exists
+    if (gameState.players.length === 0) {
+      const focusStr = Array.isArray(focusPlayers) ? focusPlayers.join(', ') : (focusPlayers || 'None');
+      addPlayer('You', team, 'casual', brand, focusStr);
+    }
+  }, [brand, team, focusPlayers, addPlayer, gameState.players.length, navigate]);
 
   const isGameOver = gameState.currentFrame >= gameState.frames.length - 1 && !gameState.isPlaying;
 

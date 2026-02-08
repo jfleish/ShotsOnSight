@@ -3,11 +3,11 @@
 export type Team = 'home' | 'away';
 export type DrinkMode = 'casual' | 'savage' | 'dd';
 export type DrinkType = 'sip' | 'shot' | 'shotgun' | null;
-export type PlayEvent = 
-  | 'touchdown' 
-  | 'field_goal' 
-  | 'turnover' 
-  | 'turnover_on_downs' 
+export type PlayEvent =
+  | 'touchdown'
+  | 'field_goal'
+  | 'turnover'
+  | 'turnover_on_downs'
   | 'interception'
   | 'fumble'
   | 'missed_fg'
@@ -44,6 +44,8 @@ export interface Player {
   name: string;
   team: Team;
   mode: DrinkMode;
+  beerBrand: string;
+  focusedOn: string;
   sips: number;
   shots: number;
   shotguns: number;
