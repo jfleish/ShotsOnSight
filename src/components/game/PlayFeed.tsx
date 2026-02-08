@@ -81,7 +81,7 @@ export function PlayFeed({ currentFrame, description }: PlayFeedProps) {
               "text-xl font-bold",
               currentFrame.possession === 'home' ? 'text-team-home' : 'text-team-away'
             )}>
-              {currentFrame.possession === 'home' ? 'PHI' : 'KC'}
+              {currentFrame.possession === 'home' ? 'SEA' : 'NE'}
             </p>
           </div>
         </div>
