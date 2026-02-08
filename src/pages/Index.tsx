@@ -22,13 +22,10 @@ const Index = () => {
     resumeGame,
     resetGame,
     skipFrame,
+    confirmCurrentAlert,
   } = useGameEngine();
 
   const isGameOver = gameState.currentFrame >= gameState.frames.length - 1 && !gameState.isPlaying;
-
-  const clearAlert = () => {
-    // Alert auto-clears, but allow manual dismiss
-  };
 
   // Show loading state while fetching data
   if (isLoading || !currentFrameData) {
@@ -48,7 +45,8 @@ const Index = () => {
       {/* Alert Overlay */}
       <AlertOverlay 
         alert={gameState.currentAlert} 
-        onDismiss={clearAlert}
+        onConfirm={confirmCurrentAlert}
+        queueCount={gameState.alertQueue.length}
       />
 
       {/* Header */}

@@ -31,6 +31,7 @@ export function useGameEngine() {
     frames: [],
     players: [],
     alerts: [],
+    alertQueue: [],
     currentAlert: null,
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -106,14 +107,26 @@ export function useGameEngine() {
         };
       }
 
-      setGameState(prev => ({
-        ...prev,
-        currentFrame: data.currentFrame,
-        elapsedTime: data.elapsedTime,
-        players,
-        alerts: newAlert ? [...prev.alerts, newAlert] : prev.alerts,
-        currentAlert: newAlert,
-      }));
+      setGameState(prev => {
+        if (newAlert) {
+          const newQueue = [...prev.alertQueue, newAlert];
+          return {
+            ...prev,
+            currentFrame: data.currentFrame,
+            elapsedTime: data.elapsedTime,
+            players,
+            alerts: [...prev.alerts, newAlert],
+            alertQueue: newQueue,
+            currentAlert: prev.currentAlert || newAlert,
+          };
+        }
+        return {
+          ...prev,
+          currentFrame: data.currentFrame,
+          elapsedTime: data.elapsedTime,
+          players,
+        };
+      });
     });
 
     socket.on('game_over', (data: any) => {
@@ -149,6 +162,7 @@ export function useGameEngine() {
         currentFrame: 0,
         elapsedTime: 0,
         alerts: [],
+        alertQueue: [],
         currentAlert: null,
         players,
       }));
@@ -177,15 +191,26 @@ export function useGameEngine() {
     };
   }, [sessionId]);
 
-  // Clear current alert after delay
-  useEffect(() => {
-    if (gameState.currentAlert) {
-      const timer = setTimeout(() => {
-        setGameState(prev => ({ ...prev, currentAlert: null }));
-      }, 4000);
-      return () => clearTimeout(timer);
+  // Confirm current alert: call API, then shift queue
+  const confirmCurrentAlert = useCallback(async () => {
+    const alert = gameState.currentAlert;
+    if (!alert || !sessionId) return;
+
+    try {
+      await api.confirmAlert(sessionId, alert.playerId, alert.id, alert.type || 'sip');
+    } catch (error) {
+      console.error('Failed to confirm alert:', error);
     }
-  }, [gameState.currentAlert]);
+
+    setGameState(prev => {
+      const newQueue = prev.alertQueue.slice(1);
+      return {
+        ...prev,
+        alertQueue: newQueue,
+        currentAlert: newQueue.length > 0 ? newQueue[0] : null,
+      };
+    });
+  }, [gameState.currentAlert, sessionId]);
 
   const currentFrameData = gameState.frames[gameState.currentFrame] || gameState.frames[0];
 
@@ -265,6 +290,7 @@ export function useGameEngine() {
         currentFrame: 0,
         elapsedTime: 0,
         alerts: [],
+        alertQueue: [],
         currentAlert: null,
         players,
       }));
@@ -292,5 +318,6 @@ export function useGameEngine() {
     resumeGame,
     resetGame,
     skipFrame,
+    confirmCurrentAlert,
   };
 }

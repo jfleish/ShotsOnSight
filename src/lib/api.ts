@@ -43,6 +43,13 @@ export const resumeSession = (sessionId: string) =>
 export const resetSession = (sessionId: string) =>
   request<any>(`/sessions/${sessionId}/reset`, { method: 'POST' });
 
+// Alert confirmations
+export const confirmAlert = (sessionId: string, playerId: string, alertId: string, alertType: string) =>
+  request<any>(`/sessions/${sessionId}/confirm-alert`, {
+    method: 'POST',
+    body: JSON.stringify({ playerId, alertId, alertType }),
+  });
+
 // Analytics
 export const getSessionAnalytics = (sessionId: string) =>
   request<any>(`/analytics/sessions/${sessionId}`);

@@ -1,14 +1,15 @@
 import { DrinkAssignment } from '@/types/game';
 import { cn } from '@/lib/utils';
-import { Beer, Wine, Cylinder, X, Flame } from 'lucide-react';
+import { Beer, Wine, Cylinder, Flame } from 'lucide-react';
 import sosLogo from '@/assets/sos-logo.png';
 
 interface AlertOverlayProps {
   alert: DrinkAssignment | null;
-  onDismiss: () => void;
+  onConfirm: () => void;
+  queueCount: number;
 }
 
-export function AlertOverlay({ alert, onDismiss }: AlertOverlayProps) {
+export function AlertOverlay({ alert, onConfirm, queueCount }: AlertOverlayProps) {
   if (!alert) return null;
 
   const getAlertConfig = () => {
@@ -56,7 +57,6 @@ export function AlertOverlay({ alert, onDismiss }: AlertOverlayProps) {
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
-      onClick={onDismiss}
     >
       {/* Fire particles background effect */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -74,13 +74,12 @@ export function AlertOverlay({ alert, onDismiss }: AlertOverlayProps) {
         )}
         onClick={e => e.stopPropagation()}
       >
-        {/* Close button */}
-        <button 
-          onClick={onDismiss}
-          className="absolute top-4 right-4 p-2 rounded-full bg-muted/50 hover:bg-muted transition-colors"
-        >
-          <X className="w-5 h-5 text-muted-foreground" />
-        </button>
+        {/* Queue indicator */}
+        {queueCount > 1 && (
+          <div className="absolute top-4 left-4 bg-primary/80 text-white px-3 py-1 rounded-full text-xs font-bold">
+            {queueCount - 1} more pending
+          </div>
+        )}
 
         {/* Mini logo at top */}
         <div className="flex justify-center mb-2">
@@ -124,10 +123,18 @@ export function AlertOverlay({ alert, onDismiss }: AlertOverlayProps) {
           {alert.reason}
         </p>
 
-        {/* Tap to dismiss hint */}
-        <p className="text-sm text-center text-muted-foreground/50 mt-6">
-          Tap anywhere to dismiss
-        </p>
+        {/* Confirm button */}
+        <button
+          onClick={onConfirm}
+          className={cn(
+            "mt-6 w-full py-4 rounded-xl text-lg font-bold uppercase tracking-wider transition-all",
+            "bg-primary hover:bg-primary/90 text-primary-foreground",
+            "shadow-[0_0_30px_hsl(0_85%_50%/0.3)] hover:shadow-[0_0_40px_hsl(0_85%_50%/0.5)]",
+            "active:scale-95"
+          )}
+        >
+          Confirm
+        </button>
       </div>
     </div>
   );

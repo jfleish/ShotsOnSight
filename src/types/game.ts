@@ -71,6 +71,7 @@ export interface GameState {
   frames: GameFrame[];
   players: Player[];
   alerts: DrinkAssignment[];
+  alertQueue: DrinkAssignment[];
   currentAlert: DrinkAssignment | null;
 }
 

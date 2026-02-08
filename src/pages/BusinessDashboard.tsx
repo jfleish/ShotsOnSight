@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { BarChart3, Users, Beer, Target, Zap, ArrowLeft, TrendingUp } from 'lucide-react';
+import { BarChart3, Users, Beer, Target, Zap, ArrowLeft, TrendingUp, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { MetricCard } from '@/components/b2b/MetricCard';
@@ -18,15 +18,24 @@ import {
     Legend
 } from 'recharts';
 
+interface AlertConfirmation {
+    playerName: string;
+    alertType: string;
+    brand: string;
+    confirmedAt: string;
+}
+
 interface DashboardData {
     totalParticipants: number;
     totalDrinks: number;
     totalSips: number;
     totalShots: number;
     totalShotguns: number;
+    totalConfirmedAlerts: number;
     roiEstimate: number;
     brandShareData: Array<{ name: string; value: number; color: string }>;
     recentActivity: Array<{ time: string; event: string; impact: string }>;
+    confirmedAlerts: AlertConfirmation[];
     activeSessions: number;
 }
 
@@ -117,10 +126,10 @@ export default function BusinessDashboard() {
                         trend={{ value: 8, isPositive: true }}
                     />
                     <MetricCard
-                        title="Ad Engagement"
-                        value="8.4%"
-                        subtext="Click-through rate"
-                        icon={Zap}
+                        title="Confirmed Engagements"
+                        value={data ? (data.totalConfirmedAlerts ?? 0).toLocaleString() : '—'}
+                        subtext="User-confirmed drink alerts"
+                        icon={CheckCircle}
                         trend={{ value: 2.1, isPositive: true }}
                     />
                     <MetricCard
@@ -197,6 +206,47 @@ export default function BusinessDashboard() {
                         </CardContent>
                     </Card>
                 </div>
+
+                {/* Confirmed Alerts Feed */}
+                <Card className="border-green-500/20 bg-card/50">
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <CheckCircle className="w-5 h-5 text-green-500" />
+                            Live Alert Confirmations
+                        </CardTitle>
+                        <CardDescription>Real-time user confirmations of drink alerts</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="space-y-3 max-h-[300px] overflow-y-auto">
+                            {(data?.confirmedAlerts || []).length === 0 ? (
+                                <p className="text-sm text-muted-foreground text-center py-4">No confirmations yet. Waiting for users to confirm alerts.</p>
+                            ) : (
+                                (data?.confirmedAlerts || []).map((conf, i) => (
+                                    <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-background/50 border border-border">
+                                        <div className="flex items-center gap-3">
+                                            <CheckCircle className="w-4 h-4 text-green-500 shrink-0" />
+                                            <div>
+                                                <span className="font-medium">{conf.playerName}</span>
+                                                <span className="text-muted-foreground mx-2">confirmed</span>
+                                                <span className={`font-bold uppercase text-xs px-2 py-0.5 rounded ${
+                                                    conf.alertType === 'shot' ? 'bg-primary/20 text-primary' :
+                                                    conf.alertType === 'shotgun' ? 'bg-accent/20 text-accent' :
+                                                    'bg-secondary/20 text-secondary-foreground'
+                                                }`}>{conf.alertType}</span>
+                                            </div>
+                                        </div>
+                                        <div className="text-right">
+                                            <span className="text-xs text-muted-foreground font-mono">{conf.confirmedAt}</span>
+                                            {conf.brand && (
+                                                <p className="text-xs text-accent font-bold">{conf.brand}</p>
+                                            )}
+                                        </div>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                    </CardContent>
+                </Card>
 
                 {/* Live Feed */}
                 <Card className="border-border bg-card/50">
