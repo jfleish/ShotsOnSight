@@ -6,11 +6,12 @@ import { ControlPanel } from '@/components/game/ControlPanel';
 import { PlayFeed } from '@/components/game/PlayFeed';
 import { TEAMS, TOTAL_DURATION } from '@/data/demoGame';
 import { AlertTriangle } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const ConsumerApp = () => {
   const {
+    sessionId,
     gameState,
     currentFrameData,
     winProbDelta,
@@ -27,22 +28,24 @@ const ConsumerApp = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { brand, team, focusPlayers } = location.state || {};
+  const playerAdded = useRef(false);
 
   useEffect(() => {
     // If no state (direct access), redirect to lobby
     if (!brand || !team) {
-      if (gameState.players.length === 0) {
+      if (!isLoading && gameState.players.length === 0) {
         navigate('/lobby');
       }
       return;
     }
 
-    // Initialize player if not exists
-    if (gameState.players.length === 0) {
+    // Wait for session to be ready, then add player once
+    if (sessionId && !playerAdded.current && gameState.players.length === 0) {
+      playerAdded.current = true;
       const focusStr = Array.isArray(focusPlayers) ? focusPlayers.join(', ') : (focusPlayers || 'None');
       addPlayer('You', team, 'casual', brand, focusStr);
     }
-  }, [brand, team, focusPlayers, addPlayer, gameState.players.length, navigate]);
+  }, [brand, team, focusPlayers, addPlayer, sessionId, isLoading, gameState.players.length, navigate]);
 
   const isGameOver = gameState.currentFrame >= gameState.frames.length - 1 && !gameState.isPlaying;
 

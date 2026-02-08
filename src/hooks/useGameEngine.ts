@@ -280,6 +280,7 @@ export function useGameEngine() {
   }, []);
 
   return {
+    sessionId,
     gameState,
     currentFrameData,
     winProbDelta,
