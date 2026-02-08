@@ -76,7 +76,7 @@ export const getPlayerHeadshotUrl = (espnId?: string) =>
   espnId ? `https://a.espncdn.com/combiner/i?img=/i/headshots/nfl/players/full/${espnId}.png&w=96&h=70&cb=1` : null;
 
 // Complete rosters from official team websites with ESPN IDs for key players
-export const FULL_ROSTERS = {
+/*export const FULL_ROSTERS = {
   home: [
     // Quarterbacks
     { name: 'Sam Darnold', position: 'QB', number: '14', espnId: '3912547' },
@@ -227,8 +227,70 @@ export const FULL_ROSTERS = {
     { name: 'Andy Borregales', position: 'K', number: '36' },
     { name: 'Bryce Baringer', position: 'P', number: '17', espnId: '4259173' },
     { name: 'Julian Ashby', position: 'LS', number: '47' },
-  ],
-} as const;
+  ],*/
+
+export const FULL_ROSTERS = [
+  {
+    name: 'Patrick Mahomes',
+    espn_id: '3139477',
+    position: 'QB',
+    jerseyNumber: '15',
+  },
+  {
+    name: 'Xavier Worthy',
+    espn_id: '4686413',
+    position: 'WR',
+    jerseyNumber: '1',
+  },
+  {
+    name: 'Travis Kelce',
+    espn_id: '15847',
+    position: 'TE',
+    jerseyNumber: '87',
+  },
+  {
+    name: 'DeAndre Hopkins',
+    espn_id: '15795',
+    position: 'WR',
+    jerseyNumber: '10',
+  },
+  {
+    name: 'JuJu Smith-Schuster',
+    espn_id: '3116385',
+    position: 'WR',
+    jerseyNumber: '9',
+  },
+  {
+    name: 'Jalen Hurts',
+    espn_id: '4040715',
+    position: 'QB',
+    jerseyNumber: '1',
+  },
+  {
+    name: 'Saquon Barkley',
+    espn_id: '3929630',
+    position: 'RB',
+    jerseyNumber: '26',
+  },
+  {
+    name: 'DeVonta Smith',
+    espn_id: '4241479',
+    position: 'WR',
+    jerseyNumber: '6',
+  },
+  {
+    name: 'AJ Brown',
+    espn_id: '4047646',
+    position: 'WR',
+    jerseyNumber: '11',
+  },
+  {
+    name: 'Cooper DeJean',
+    espn_id: '4697810',
+    position: 'CB',
+    jerseyNumber: '33',
+  },
+];
 
 export const FRAME_INTERVAL = 15; // seconds between frames
 export const TOTAL_DURATION = 600; // 10 minutes in seconds
