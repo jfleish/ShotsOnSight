@@ -3,8 +3,8 @@ import { Player, Team } from '@/types/game';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { TEAMS } from '@/data/demoGame';
-import { Plus, Trash2, Wine, Beer, Cylinder, User } from 'lucide-react';
+import { TEAMS, SUGGESTED_PLAYERS } from '@/data/demoGame';
+import { Plus, Trash2, Wine, Beer, Cylinder, User, Sparkles } from 'lucide-react';
 
 interface PlayerPanelProps {
   players: Player[];
@@ -17,11 +17,13 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
   const [newName, setNewName] = useState('');
   const [newTeam, setNewTeam] = useState<Team>('home');
   const [newMode, setNewMode] = useState<'casual' | 'savage' | 'dd'>('casual');
+  const [showSuggestions, setShowSuggestions] = useState(false);
 
   const handleAdd = () => {
     if (newName.trim()) {
       onAddPlayer(newName.trim(), newTeam, newMode);
       setNewName('');
+      setShowSuggestions(false);
     }
   };
 
@@ -30,6 +32,17 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
       handleAdd();
     }
   };
+
+  const handleSuggestionClick = (name: string) => {
+    setNewName(name);
+    setShowSuggestions(false);
+  };
+
+  const currentSuggestions = SUGGESTED_PLAYERS[newTeam];
+  const filteredSuggestions = currentSuggestions.filter(
+    p => p.name.toLowerCase().includes(newName.toLowerCase()) &&
+    !players.some(player => player.name.toLowerCase() === p.name.toLowerCase())
+  );
 
   return (
     <div className="rounded-xl border border-border bg-card overflow-hidden">
@@ -43,17 +56,48 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
       {/* Add player form */}
       {!disabled && (
         <div className="p-4 border-b border-border space-y-3">
-          <Input
-            placeholder="Enter player name"
-            value={newName}
-            onChange={e => setNewName(e.target.value)}
-            onKeyPress={handleKeyPress}
-            className="bg-muted border-border"
-          />
+          <div className="relative">
+            <Input
+              placeholder="Enter player name or pick from roster"
+              value={newName}
+              onChange={e => {
+                setNewName(e.target.value);
+                setShowSuggestions(true);
+              }}
+              onFocus={() => setShowSuggestions(true)}
+              onKeyPress={handleKeyPress}
+              className="bg-muted border-border"
+            />
+            
+            {/* Suggestions dropdown */}
+            {showSuggestions && filteredSuggestions.length > 0 && (
+              <div className="absolute z-10 mt-1 w-full bg-popover border border-border rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                <div className="p-2 border-b border-border bg-muted/50">
+                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" />
+                    {TEAMS[newTeam].name} Roster
+                  </p>
+                </div>
+                {filteredSuggestions.slice(0, 8).map((player) => (
+                  <button
+                    key={player.name}
+                    onClick={() => handleSuggestionClick(player.name)}
+                    className="w-full px-3 py-2 text-left hover:bg-muted transition-colors flex items-center justify-between"
+                  >
+                    <span className="font-medium text-sm">{player.name}</span>
+                    <span className="text-xs text-muted-foreground">{player.position}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
           
           <div className="flex gap-2">
             <button
-              onClick={() => setNewTeam('home')}
+              onClick={() => {
+                setNewTeam('home');
+                setShowSuggestions(true);
+              }}
               className={cn(
                 "flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all",
                 newTeam === 'home'
@@ -64,7 +108,10 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
               {TEAMS.home.name}
             </button>
             <button
-              onClick={() => setNewTeam('away')}
+              onClick={() => {
+                setNewTeam('away');
+                setShowSuggestions(true);
+              }}
               className={cn(
                 "flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all",
                 newTeam === 'away'
