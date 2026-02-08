@@ -1,6 +1,7 @@
 import { GameFrame } from '@/types/game';
 import { cn } from '@/lib/utils';
 import { Activity } from 'lucide-react';
+import { TEAMS } from '@/data/demoGame';
 
 interface PlayFeedProps {
   currentFrame: GameFrame;
@@ -81,7 +82,7 @@ export function PlayFeed({ currentFrame, description }: PlayFeedProps) {
               "text-xl font-bold",
               currentFrame.possession === 'home' ? 'text-team-home' : 'text-team-away'
             )}>
-              {currentFrame.possession === 'home' ? 'SEA' : 'NE'}
+              {currentFrame.possession === 'home' ? TEAMS.home.abbreviation : TEAMS.away.abbreviation}
             </p>
           </div>
         </div>
