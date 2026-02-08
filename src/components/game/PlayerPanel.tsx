@@ -3,7 +3,8 @@ import { Player, Team } from '@/types/game';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { TEAMS, FULL_ROSTERS } from '@/data/demoGame';
+import { TEAMS, FULL_ROSTERS, getPlayerHeadshotUrl } from '@/data/demoGame';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Plus, Trash2, Wine, Beer, Cylinder, User, Sparkles, ChevronDown } from 'lucide-react';
 
 interface PlayerPanelProps {
@@ -11,6 +12,35 @@ interface PlayerPanelProps {
   onAddPlayer: (name: string, team: Team, mode: 'casual' | 'savage' | 'dd') => void;
   onRemovePlayer: (playerId: string) => void;
   disabled?: boolean;
+}
+
+// Helper to find player headshot by name
+const findPlayerHeadshot = (name: string): string | null => {
+  const allPlayers = [...FULL_ROSTERS.home, ...FULL_ROSTERS.away];
+  const player = allPlayers.find(p => p.name.toLowerCase() === name.toLowerCase());
+  if (player && 'espnId' in player && player.espnId) {
+    return getPlayerHeadshotUrl(player.espnId);
+  }
+  return null;
+};
+
+// Player avatar with headshot support
+function PlayerAvatar({ name, team }: { name: string; team: Team }) {
+  const headshotUrl = findPlayerHeadshot(name);
+  
+  return (
+    <Avatar className="w-10 h-10">
+      {headshotUrl && <AvatarImage src={headshotUrl} alt={name} />}
+      <AvatarFallback className={cn(
+        "text-sm font-bold",
+        team === 'home' 
+          ? "bg-team-home-muted text-team-home" 
+          : "bg-team-away-muted text-team-away"
+      )}>
+        {name.charAt(0).toUpperCase()}
+      </AvatarFallback>
+    </Avatar>
+  );
 }
 
 export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: PlayerPanelProps) {
@@ -145,34 +175,48 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
                     } ({filteredSuggestions.length})
                   </p>
                 </div>
-                {filteredSuggestions.slice(0, 20).map((player) => (
-                  <button
-                    key={`${player.team}-${player.name}`}
-                    onClick={() => handleSuggestionClick(player.name, player.team)}
-                    className="w-full px-3 py-2 text-left hover:bg-muted transition-colors flex items-center justify-between border-b border-border/50 last:border-0"
-                  >
-                    <div className="flex items-center gap-2">
-                      <span className={cn(
-                        "text-xs font-bold px-1.5 py-0.5 rounded",
-                        player.team === 'home' 
-                          ? "bg-team-home/20 text-team-home" 
-                          : "bg-team-away/20 text-team-away"
-                      )}>
-                        #{player.number}
-                      </span>
-                      <span className="font-medium text-sm">{player.name}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-muted-foreground">{player.position}</span>
-                      <span className={cn(
-                        "text-xs",
-                        player.team === 'home' ? 'text-team-home' : 'text-team-away'
-                      )}>
-                        {player.team === 'home' ? TEAMS.home.abbreviation : TEAMS.away.abbreviation}
-                      </span>
-                    </div>
-                  </button>
-                ))}
+                {filteredSuggestions.slice(0, 20).map((player) => {
+                  const headshotUrl = 'espnId' in player ? getPlayerHeadshotUrl(player.espnId) : null;
+                  return (
+                    <button
+                      key={`${player.team}-${player.name}`}
+                      onClick={() => handleSuggestionClick(player.name, player.team)}
+                      className="w-full px-3 py-2 text-left hover:bg-muted transition-colors flex items-center justify-between border-b border-border/50 last:border-0"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Avatar className="w-8 h-8">
+                          {headshotUrl && <AvatarImage src={headshotUrl} alt={player.name} />}
+                          <AvatarFallback className={cn(
+                            "text-xs font-bold",
+                            player.team === 'home' 
+                              ? "bg-team-home/20 text-team-home" 
+                              : "bg-team-away/20 text-team-away"
+                          )}>
+                            {player.name.charAt(0)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <span className={cn(
+                          "text-xs font-bold px-1.5 py-0.5 rounded",
+                          player.team === 'home' 
+                            ? "bg-team-home/20 text-team-home" 
+                            : "bg-team-away/20 text-team-away"
+                        )}>
+                          #{player.number}
+                        </span>
+                        <span className="font-medium text-sm">{player.name}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-muted-foreground">{player.position}</span>
+                        <span className={cn(
+                          "text-xs",
+                          player.team === 'home' ? 'text-team-home' : 'text-team-away'
+                        )}>
+                          {player.team === 'home' ? TEAMS.home.abbreviation : TEAMS.away.abbreviation}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
                 {filteredSuggestions.length > 20 && (
                   <div className="p-2 text-center text-xs text-muted-foreground bg-muted/50">
                     +{filteredSuggestions.length - 20} more players...
@@ -253,14 +297,7 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
               )}
             >
               {/* Avatar */}
-              <div className={cn(
-                "w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold",
-                player.team === 'home' 
-                  ? "bg-team-home-muted text-team-home" 
-                  : "bg-team-away-muted text-team-away"
-              )}>
-                {player.name.charAt(0).toUpperCase()}
-              </div>
+              <PlayerAvatar name={player.name} team={player.team} />
 
               {/* Info */}
               <div className="flex-1 min-w-0">
