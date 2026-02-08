@@ -1,5 +1,5 @@
 import { TEAMS } from '@/data/demoGame';
-import { Zap } from 'lucide-react';
+import sosLogo from '@/assets/sos-logo.png';
 
 interface HeaderBarProps {
   elapsedTime: number;
@@ -17,33 +17,27 @@ export function HeaderBar({ elapsedTime, totalDuration, isPlaying }: HeaderBarPr
   const progress = (elapsedTime / totalDuration) * 100;
 
   return (
-    <header className="relative overflow-hidden border-b border-border bg-card">
-      {/* Scanline effect */}
-      <div className="absolute inset-0 pointer-events-none opacity-30 scanlines" />
+    <header className="relative overflow-hidden border-b border-border bg-gradient-hero">
+      {/* Subtle fire glow background */}
+      <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-primary/20 via-transparent to-accent/20" />
       
-      <div className="container py-4">
+      <div className="container py-3 relative">
         <div className="flex items-center justify-between gap-4">
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="relative">
-              <div className="w-12 h-12 rounded-lg bg-destructive flex items-center justify-center glow-destructive">
-                <Zap className="w-7 h-7 text-destructive-foreground" />
-              </div>
+              <img 
+                src={sosLogo} 
+                alt="SOS: Shot On Sight" 
+                className="h-16 w-auto object-contain drop-shadow-lg"
+              />
               {isPlaying && (
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full animate-pulse" />
+                <span className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full animate-pulse glow-accent" />
               )}
-            </div>
-            <div>
-              <h1 className="text-2xl font-display tracking-tight text-foreground">
-                SOS
-              </h1>
-              <p className="text-xs text-muted-foreground tracking-widest uppercase">
-                Shot On Sight
-              </p>
             </div>
           </div>
 
-          {/* Teams */}
+          {/* Teams - Mobile hidden */}
           <div className="hidden md:flex items-center gap-8">
             <div className="flex items-center gap-3">
               <img 
@@ -56,7 +50,9 @@ export function HeaderBar({ elapsedTime, totalDuration, isPlaying }: HeaderBarPr
                 <p className="text-lg font-bold text-team-home">{TEAMS.home.name}</p>
               </div>
             </div>
-            <div className="text-2xl font-display text-muted-foreground">VS</div>
+            <div className="px-4 py-2 bg-primary/20 rounded-lg border border-primary/30">
+              <span className="text-xl font-display text-primary">VS</span>
+            </div>
             <div className="flex items-center gap-3">
               <div className="text-left">
                 <p className="text-xs text-muted-foreground uppercase tracking-wide">{TEAMS.away.city}</p>
@@ -79,10 +75,10 @@ export function HeaderBar({ elapsedTime, totalDuration, isPlaying }: HeaderBarPr
           </div>
         </div>
 
-        {/* Progress bar */}
-        <div className="mt-3 h-1 bg-muted rounded-full overflow-hidden">
+        {/* Progress bar with fire gradient */}
+        <div className="mt-3 h-1.5 bg-muted rounded-full overflow-hidden">
           <div 
-            className="h-full bg-gradient-to-r from-team-home to-team-away transition-all duration-500"
+            className="h-full bg-gradient-fire transition-all duration-500 rounded-full"
             style={{ width: `${progress}%` }}
           />
         </div>

@@ -320,15 +320,15 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
 
               {/* Drink counts */}
               <div className="flex items-center gap-3 text-xs">
-                <div className="flex items-center gap-1 text-drink-sip">
+                <div className="flex items-center gap-1 text-accent">
                   <Wine className="w-3 h-3" />
                   <span className="font-mono">{player.sips}</span>
                 </div>
-                <div className="flex items-center gap-1 text-drink-shot">
+                <div className="flex items-center gap-1 text-primary">
                   <Beer className="w-3 h-3" />
                   <span className="font-mono">{player.shots}</span>
                 </div>
-                <div className="flex items-center gap-1 text-drink-shotgun">
+                <div className="flex items-center gap-1 text-[hsl(25,100%,55%)]">
                   <Cylinder className="w-3 h-3" />
                   <span className="font-mono">{player.shotguns}</span>
                 </div>

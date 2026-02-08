@@ -146,6 +146,7 @@ export default {
         "gradient-alert": "var(--gradient-alert)",
         "gradient-shotgun": "var(--gradient-shotgun)",
         "gradient-win": "var(--gradient-win)",
+        "gradient-fire": "var(--gradient-fire)",
       },
     },
   },

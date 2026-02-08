@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { Play, Pause, RotateCcw, SkipForward } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Play, Pause, RotateCcw, SkipForward, Flame } from 'lucide-react';
 
 interface ControlPanelProps {
   isPlaying: boolean;
@@ -32,14 +32,14 @@ export function ControlPanel({
             onClick={onStart}
             disabled={!canStart}
             className={cn(
-              "min-w-[140px] text-lg font-bold",
+              "min-w-[160px] text-lg font-bold gap-2",
               "bg-primary hover:bg-primary/90 text-primary-foreground",
               "glow-primary transition-all",
               !canStart && "opacity-50"
             )}
           >
-            <Play className="w-5 h-5 mr-2" />
-            START
+            <Flame className="w-5 h-5" />
+            START GAME
           </Button>
         ) : isPaused ? (
           <Button

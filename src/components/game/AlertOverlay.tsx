@@ -1,6 +1,7 @@
 import { DrinkAssignment } from '@/types/game';
 import { cn } from '@/lib/utils';
-import { Beer, Wine, Cylinder, X } from 'lucide-react';
+import { Beer, Wine, Cylinder, X, Flame } from 'lucide-react';
+import sosLogo from '@/assets/sos-logo.png';
 
 interface AlertOverlayProps {
   alert: DrinkAssignment | null;
@@ -16,28 +17,31 @@ export function AlertOverlay({ alert, onDismiss }: AlertOverlayProps) {
         return {
           icon: Wine,
           title: 'SIP!',
-          gradient: 'from-drink-sip/20 to-drink-sip/5',
-          border: 'border-drink-sip',
-          iconColor: 'text-drink-sip',
-          glow: 'shadow-[0_0_60px_rgba(34,197,94,0.3)]',
+          gradient: 'from-accent/30 via-accent/10 to-transparent',
+          border: 'border-accent',
+          iconColor: 'text-accent',
+          bgColor: 'bg-accent/10',
+          glow: 'shadow-[0_0_60px_hsl(42_100%_50%/0.4)]',
         };
       case 'shot':
         return {
           icon: Beer,
           title: 'SHOT!',
-          gradient: 'from-drink-shot/30 to-drink-shot/5',
-          border: 'border-drink-shot',
-          iconColor: 'text-drink-shot',
-          glow: 'shadow-[0_0_80px_rgba(239,68,68,0.4)]',
+          gradient: 'from-primary/40 via-primary/15 to-transparent',
+          border: 'border-primary',
+          iconColor: 'text-primary',
+          bgColor: 'bg-primary/10',
+          glow: 'shadow-[0_0_80px_hsl(0_85%_50%/0.5)]',
         };
       case 'shotgun':
         return {
           icon: Cylinder,
           title: 'SHOTGUN!',
-          gradient: 'from-drink-shotgun/30 to-drink-shotgun/5',
-          border: 'border-drink-shotgun',
-          iconColor: 'text-drink-shotgun',
-          glow: 'shadow-[0_0_100px_rgba(234,179,8,0.5)]',
+          gradient: 'from-[hsl(25,100%,55%)]/40 via-accent/20 to-transparent',
+          border: 'border-accent',
+          iconColor: 'text-accent',
+          bgColor: 'bg-gradient-fire',
+          glow: 'shadow-[0_0_100px_hsl(25_100%_55%/0.6)]',
         };
       default:
         return null;
@@ -51,13 +55,19 @@ export function AlertOverlay({ alert, onDismiss }: AlertOverlayProps) {
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
       onClick={onDismiss}
     >
+      {/* Fire particles background effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-32 h-32 bg-primary/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-40 h-40 bg-accent/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }} />
+      </div>
+
       <div 
         className={cn(
           "relative max-w-lg w-full rounded-2xl border-2 p-8 animate-alert-in",
-          "bg-gradient-to-b",
+          "bg-gradient-to-b bg-card",
           config.gradient,
           config.border,
           config.glow
@@ -72,35 +82,51 @@ export function AlertOverlay({ alert, onDismiss }: AlertOverlayProps) {
           <X className="w-5 h-5 text-muted-foreground" />
         </button>
 
-        {/* Icon */}
+        {/* Mini logo at top */}
+        <div className="flex justify-center mb-2">
+          <img src={sosLogo} alt="SOS" className="h-12 w-auto opacity-70" />
+        </div>
+
+        {/* Icon with fire effect */}
         <div className="flex justify-center mb-4">
           <div className={cn(
-            "w-24 h-24 rounded-full flex items-center justify-center",
-            "bg-card border-2",
+            "relative w-28 h-28 rounded-full flex items-center justify-center",
+            "bg-card border-4",
             config.border,
             "animate-pulse-glow"
           )}>
-            <Icon className={cn("w-12 h-12", config.iconColor)} />
+            {/* Fire accent for shotgun */}
+            {alert.type === 'shotgun' && (
+              <Flame className="absolute -top-4 left-1/2 -translate-x-1/2 w-8 h-8 text-[hsl(25,100%,55%)] animate-pulse" />
+            )}
+            <Icon className={cn("w-14 h-14", config.iconColor)} />
           </div>
         </div>
 
-        {/* Title */}
+        {/* Title with dramatic styling */}
         <h2 className={cn(
-          "text-5xl md:text-6xl font-display text-center mb-4",
+          "text-6xl md:text-7xl font-display text-center mb-4 tracking-tight",
           config.iconColor,
-          "text-shadow-glow"
+          "drop-shadow-[0_0_20px_currentColor]"
         )}>
           {config.title}
         </h2>
 
-        {/* Player name */}
-        <p className="text-3xl md:text-4xl font-bold text-center text-foreground mb-3">
-          {alert.playerName}
-        </p>
+        {/* Player name with emphasis */}
+        <div className="bg-muted/50 rounded-xl p-4 mb-3 border border-border">
+          <p className="text-3xl md:text-4xl font-bold text-center text-foreground">
+            {alert.playerName}
+          </p>
+        </div>
 
         {/* Reason */}
-        <p className="text-lg text-center text-muted-foreground uppercase tracking-wide">
+        <p className="text-lg text-center text-muted-foreground uppercase tracking-widest font-medium">
           {alert.reason}
+        </p>
+
+        {/* Tap to dismiss hint */}
+        <p className="text-sm text-center text-muted-foreground/50 mt-6">
+          Tap anywhere to dismiss
         </p>
       </div>
     </div>
