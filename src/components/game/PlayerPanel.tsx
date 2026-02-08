@@ -3,8 +3,8 @@ import { Player, Team } from '@/types/game';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { TEAMS, SUGGESTED_PLAYERS } from '@/data/demoGame';
-import { Plus, Trash2, Wine, Beer, Cylinder, User, Sparkles } from 'lucide-react';
+import { TEAMS, FULL_ROSTERS } from '@/data/demoGame';
+import { Plus, Trash2, Wine, Beer, Cylinder, User, Sparkles, ChevronDown } from 'lucide-react';
 
 interface PlayerPanelProps {
   players: Player[];
@@ -18,6 +18,7 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
   const [newTeam, setNewTeam] = useState<Team>('home');
   const [newMode, setNewMode] = useState<'casual' | 'savage' | 'dd'>('casual');
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [rosterFilter, setRosterFilter] = useState<'all' | 'home' | 'away'>('all');
 
   const handleAdd = () => {
     if (newName.trim()) {
@@ -33,13 +34,24 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
     }
   };
 
-  const handleSuggestionClick = (name: string) => {
+  const handleSuggestionClick = (name: string, team: Team) => {
     setNewName(name);
+    setNewTeam(team);
     setShowSuggestions(false);
   };
 
-  const currentSuggestions = SUGGESTED_PLAYERS[newTeam];
-  const filteredSuggestions = currentSuggestions.filter(
+  // Get all players from selected rosters
+  const getAllSuggestions = () => {
+    const homePlayers = FULL_ROSTERS.home.map(p => ({ ...p, team: 'home' as Team }));
+    const awayPlayers = FULL_ROSTERS.away.map(p => ({ ...p, team: 'away' as Team }));
+    
+    if (rosterFilter === 'home') return homePlayers;
+    if (rosterFilter === 'away') return awayPlayers;
+    return [...homePlayers, ...awayPlayers];
+  };
+
+  const allSuggestions = getAllSuggestions();
+  const filteredSuggestions = allSuggestions.filter(
     p => p.name.toLowerCase().includes(newName.toLowerCase()) &&
     !players.some(player => player.name.toLowerCase() === p.name.toLowerCase())
   );
@@ -56,9 +68,55 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
       {/* Add player form */}
       {!disabled && (
         <div className="p-4 border-b border-border space-y-3">
+          {/* Roster filter tabs */}
+          <div className="flex gap-1 p-1 bg-muted rounded-lg">
+            <button
+              onClick={() => {
+                setRosterFilter('all');
+                setShowSuggestions(true);
+              }}
+              className={cn(
+                "flex-1 py-1.5 px-2 rounded text-xs font-medium transition-all",
+                rosterFilter === 'all'
+                  ? "bg-card text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              All Players
+            </button>
+            <button
+              onClick={() => {
+                setRosterFilter('home');
+                setShowSuggestions(true);
+              }}
+              className={cn(
+                "flex-1 py-1.5 px-2 rounded text-xs font-medium transition-all",
+                rosterFilter === 'home'
+                  ? "bg-team-home text-white"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {TEAMS.home.abbreviation}
+            </button>
+            <button
+              onClick={() => {
+                setRosterFilter('away');
+                setShowSuggestions(true);
+              }}
+              className={cn(
+                "flex-1 py-1.5 px-2 rounded text-xs font-medium transition-all",
+                rosterFilter === 'away'
+                  ? "bg-team-away text-white"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              {TEAMS.away.abbreviation}
+            </button>
+          </div>
+
           <div className="relative">
             <Input
-              placeholder="Enter player name or pick from roster"
+              placeholder="Search player or type custom name..."
               value={newName}
               onChange={e => {
                 setNewName(e.target.value);
@@ -66,38 +124,67 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
               }}
               onFocus={() => setShowSuggestions(true)}
               onKeyPress={handleKeyPress}
-              className="bg-muted border-border"
+              className="bg-muted border-border pr-8"
+            />
+            <ChevronDown 
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground cursor-pointer"
+              onClick={() => setShowSuggestions(!showSuggestions)}
             />
             
             {/* Suggestions dropdown */}
             {showSuggestions && filteredSuggestions.length > 0 && (
-              <div className="absolute z-10 mt-1 w-full bg-popover border border-border rounded-lg shadow-lg max-h-48 overflow-y-auto">
-                <div className="p-2 border-b border-border bg-muted/50">
+              <div className="absolute z-50 mt-1 w-full bg-card border border-border rounded-lg shadow-xl max-h-64 overflow-y-auto">
+                <div className="sticky top-0 p-2 border-b border-border bg-muted">
                   <p className="text-xs text-muted-foreground flex items-center gap-1">
                     <Sparkles className="w-3 h-3" />
-                    {TEAMS[newTeam].name} Roster
+                    {rosterFilter === 'all' 
+                      ? 'All Players' 
+                      : rosterFilter === 'home' 
+                        ? `${TEAMS.home.name} Roster` 
+                        : `${TEAMS.away.name} Roster`
+                    } ({filteredSuggestions.length})
                   </p>
                 </div>
-                {filteredSuggestions.slice(0, 8).map((player) => (
+                {filteredSuggestions.slice(0, 20).map((player) => (
                   <button
-                    key={player.name}
-                    onClick={() => handleSuggestionClick(player.name)}
-                    className="w-full px-3 py-2 text-left hover:bg-muted transition-colors flex items-center justify-between"
+                    key={`${player.team}-${player.name}`}
+                    onClick={() => handleSuggestionClick(player.name, player.team)}
+                    className="w-full px-3 py-2 text-left hover:bg-muted transition-colors flex items-center justify-between border-b border-border/50 last:border-0"
                   >
-                    <span className="font-medium text-sm">{player.name}</span>
-                    <span className="text-xs text-muted-foreground">{player.position}</span>
+                    <div className="flex items-center gap-2">
+                      <span className={cn(
+                        "text-xs font-bold px-1.5 py-0.5 rounded",
+                        player.team === 'home' 
+                          ? "bg-team-home/20 text-team-home" 
+                          : "bg-team-away/20 text-team-away"
+                      )}>
+                        #{player.number}
+                      </span>
+                      <span className="font-medium text-sm">{player.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-muted-foreground">{player.position}</span>
+                      <span className={cn(
+                        "text-xs",
+                        player.team === 'home' ? 'text-team-home' : 'text-team-away'
+                      )}>
+                        {player.team === 'home' ? TEAMS.home.abbreviation : TEAMS.away.abbreviation}
+                      </span>
+                    </div>
                   </button>
                 ))}
+                {filteredSuggestions.length > 20 && (
+                  <div className="p-2 text-center text-xs text-muted-foreground bg-muted/50">
+                    +{filteredSuggestions.length - 20} more players...
+                  </div>
+                )}
               </div>
             )}
           </div>
           
           <div className="flex gap-2">
             <button
-              onClick={() => {
-                setNewTeam('home');
-                setShowSuggestions(true);
-              }}
+              onClick={() => setNewTeam('home')}
               className={cn(
                 "flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all",
                 newTeam === 'home'
@@ -108,10 +195,7 @@ export function PlayerPanel({ players, onAddPlayer, onRemovePlayer, disabled }: 
               {TEAMS.home.name}
             </button>
             <button
-              onClick={() => {
-                setNewTeam('away');
-                setShowSuggestions(true);
-              }}
+              onClick={() => setNewTeam('away')}
               className={cn(
                 "flex-1 py-2 px-3 rounded-lg text-sm font-medium transition-all",
                 newTeam === 'away'
