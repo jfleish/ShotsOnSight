@@ -14,6 +14,7 @@ const Index = () => {
     gameState,
     currentFrameData,
     winProbDelta,
+    isLoading,
     addPlayer,
     removePlayer,
     startGame,
@@ -28,6 +29,19 @@ const Index = () => {
   const clearAlert = () => {
     // Alert auto-clears, but allow manual dismiss
   };
+
+  // Show loading state while fetching data
+  if (isLoading || !currentFrameData) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <h2 className="text-xl font-display text-foreground">Loading Super Bowl 2025 Data...</h2>
+          <p className="text-muted-foreground mt-2">Fetching real-time play data</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">

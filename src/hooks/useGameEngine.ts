@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { GameState, Player, DrinkAssignment, DrinkType, Team, DEFAULT_DRINK_RULES, EVENT_DRINKS, MODE_MULTIPLIERS } from '@/types/game';
-import { DEMO_GAME, FRAME_INTERVAL } from '@/data/demoGame';
+import { getGameData, FRAME_INTERVAL } from '@/data/demoGame';
 
 const generateId = () => Math.random().toString(36).substring(2, 9);
 
@@ -10,11 +10,28 @@ export function useGameEngine() {
     isPaused: false,
     currentFrame: 0,
     elapsedTime: 0,
-    frames: DEMO_GAME,
+    frames: [], // Will be loaded asynchronously
     players: [],
     alerts: [],
     currentAlert: null,
   });
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Load game data on mount
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        const frames = await getGameData();
+        setGameState(prev => ({ ...prev, frames }));
+      } catch (error) {
+        console.error('Failed to load game data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    loadData();
+  }, []);
 
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const lastDrinkTimeRef = useRef<Record<string, number>>({});
@@ -280,6 +297,7 @@ export function useGameEngine() {
     gameState,
     currentFrameData,
     winProbDelta,
+    isLoading,
     addPlayer,
     removePlayer,
     startGame,
