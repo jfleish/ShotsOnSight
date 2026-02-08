@@ -1,573 +1,804 @@
 {
-  "super_bowl": "Super Bowl LIX (59)",
-  "year": 2025,
-  "game_date": "February 9, 2025",
-  "location": "Caesars Superdome, New Orleans, Louisiana",
-  "final_score": "Philadelphia Eagles 40, Kansas City Chiefs 22",
-  "mvp": "Jalen Hurts (Philadelphia Eagles QB)",
-  "broadcast_network": "Fox Corporation",
-  "streaming": "Tubi (free)",
-  "average_viewership": "126 million viewers",
-  "peak_viewership": "135.7 million (second quarter)",
-  "ad_pricing": "$7-8 million per 30-second spot",
-  "commercials": [
-    {
-      "brand": "Paramount Pictures",
-      "title": "Mission: Impossible – The Final Reckoning",
-      "timing": "After National Anthem",
-      "description": "Movie trailer for upcoming Mission: Impossible film"
-    },
-    {
-      "brand": "Skechers",
-      "title": "Skechers with Andy Reid",
-      "celebrity": "Andy Reid",
-      "timing": "After National Anthem",
-      "description": "NFL coach Andy Reid promotes Skechers comfortable footwear"
-    },
-    {
-      "brand": "TurboTax (Intuit)",
-      "title": "Now Taxes is So Sweet",
-      "timing": "After National Anthem",
-      "description": "TurboTax promises to make tax filing sweet and easy"
-    },
-    {
-      "brand": "Disney",
-      "title": "Lilo & Stitch",
-      "timing": "After Coin Toss",
-      "description": "Live action movie teaser for Disney's Lilo & Stitch"
-    },
-    {
-      "brand": "YouTube TV (Alphabet/Google)",
-      "timing": "After Coin Toss",
-      "description": "YouTube TV streaming service promotion"
-    },
-    {
-      "brand": "Dunkin'",
-      "title": "DunKings 2",
-      "celebrities": ["Ben Affleck", "Casey Affleck", "Jeremy Strong", "Bill Belichick", "Druski"],
-      "timing": "First Quarter",
-      "description": "Sequel to DunKings featuring the Affleck brothers, Jeremy Strong, Bill Belichick, and comedian Druski"
-    },
-    {
-      "brand": "Universal Pictures (Comcast)",
-      "title": "How To Train Your Dragon",
-      "timing": "First Quarter",
-      "description": "Live action movie trailer for How To Train Your Dragon"
-    },
-    {
-      "brand": "Pfizer",
-      "title": "Knock Out",
-      "timing": "First Quarter",
-      "description": "Pfizer pharmaceutical ad using boxing metaphor for health treatments"
-    },
-    {
-      "brand": "Marvel Studios (Disney)",
-      "title": "Thunderbolts",
-      "timing": "First Quarter",
-      "description": "Marvel Studios trailer for the upcoming Thunderbolts superhero film"
-    },
-    {
-      "brand": "MSC Cruises",
-      "title": "Lets Holiday",
-      "timing": "First Quarter",
-      "description": "MSC Cruises promotes vacation experiences on their cruise ships"
-    },
-    {
-      "brand": "Little Caesars",
-      "title": "Woah",
-      "celebrity": "Eugene Levy",
-      "timing": "First Quarter",
-      "description": "Eugene Levy reacts with his signature 'woah' to Little Caesars' value"
-    },
-    {
-      "brand": "T-Mobile with Starlink",
-      "title": "A New Era in Connectivity",
-      "timing": "First Quarter",
-      "description": "T-Mobile partners with Starlink for satellite connectivity announcement"
-    },
-    {
-      "brand": "Homes.com (CoStar Group)",
-      "title": "Not Saying We're the Best",
-      "timing": "First Quarter",
-      "description": "Homes.com's self-deprecating real estate ad campaign"
-    },
-    {
-      "brand": "Meta Ray-Ban",
-      "title": "Ray-Ban Smart Glasses",
-      "timing": "First Quarter",
-      "description": "Meta Ray-Ban demonstrates smart glasses AI capabilities"
-    },
-    {
-      "brand": "Doritos (PepsiCo)",
-      "title": "Abduction",
-      "timing": "First Quarter",
-      "description": "Doritos ad featuring an alien abduction scenario centered around the chips"
-    },
-    {
-      "brand": "Cirkul",
-      "title": "You Got Cirkul",
-      "timing": "First Quarter",
-      "description": "Cirkul water bottle system promotes their customizable flavor technology"
-    },
-    {
-      "brand": "Michelob ULTRA (Anheuser-Busch InBev)",
-      "title": "The ULTRA Hustle",
-      "celebrities": ["Willem Dafoe", "Catherine O'Hara"],
-      "timing": "First Quarter",
-      "description": "Willem Dafoe and Catherine O'Hara play pickleball in Michelob ULTRA's celebration of active lifestyles"
-    },
-    {
-      "brand": "Disney+ and Hulu",
-      "title": "What If?",
-      "timing": "Second Quarter",
-      "description": "Disney+ campaign highlighting stories that have defined generations"
-    },
-    {
-      "brand": "Ritz (Mondelez)",
-      "title": "RITZ Salty Club",
-      "timing": "Second Quarter",
-      "description": "Ritz crackers creates an exclusive 'salty club' concept around their product"
-    },
-    {
-      "brand": "Red Bull",
-      "timing": "Second Quarter",
-      "description": "Red Bull energy drink promotion"
-    },
-    {
-      "brand": "Squarespace",
-      "title": "A Tale As Old As Websites",
-      "timing": "Second Quarter",
-      "description": "Squarespace tells a timeless story about website building"
-    },
-    {
-      "brand": "Mountain Dew Baja Blast (PepsiCo)",
-      "title": "Kiss From A Lime",
-      "celebrities": ["SEAL", "Becky G", "Taika Waititi (director)"],
-      "timing": "Second Quarter",
-      "description": "Musical ad featuring SEAL (as an actual seal), Becky G, and directed by Taika Waititi in a parody of 'Kiss From A Rose'"
-    },
-    {
-      "brand": "Instacart (Maplebear)",
-      "title": "We're Here",
-      "timing": "Second Quarter",
-      "description": "Instacart's grocery delivery service highlights their reliability"
-    },
-    {
-      "brand": "Coors Light (Molson Coors)",
-      "title": "Slow Monday",
-      "celebrity": "Timothy Simons",
-      "timing": "Second Quarter",
-      "description": "Timothy Simons stars in Coors Light's ad about the slow pace of Monday after the Super Bowl"
-    },
-    {
-      "brand": "Stand Up to Hate",
-      "timing": "Second Quarter",
-      "description": "Public service announcement campaign"
-    },
-    {
-      "brand": "FanDuel (Flutter Entertainment)",
-      "title": "The Kick of Destiny 3",
-      "celebrities": ["Eli Manning", "Peyton Manning"],
-      "timing": "Second Quarter",
-      "description": "Third installment of FanDuel's Kick of Destiny series featuring the Manning brothers"
-    },
-    {
-      "brand": "Uber Eats (Uber Technologies)",
-      "title": "A Century of Cravings",
-      "celebrities": ["Matthew McConaughey", "Kevin Bacon", "Martha Stewart", "Charli XCX", "Sean Evans"],
-      "timing": "Second Quarter",
-      "description": "Star-studded ad featuring Matthew McConaughey exploring if football is a conspiracy to keep us hungry"
-    },
-    {
-      "brand": "WeatherTech",
-      "title": "Whatever Comes Your Way",
-      "timing": "Second Quarter",
-      "description": "WeatherTech featuring four women in their 70s on a road trip"
-    },
-    {
-      "brand": "TurboTax (Intuit)",
-      "title": "Now Taxes is So Sweet",
-      "timing": "Second Quarter",
-      "description": "TurboTax second appearance promoting easy tax filing"
-    },
-    {
-      "brand": "Google Pixel",
-      "title": "Dream Job",
-      "timing": "Second Quarter",
-      "description": "Google Pixel with Gemini AI showcases phone features"
-    },
-    {
-      "brand": "Rocket Companies",
-      "title": "Take Me Home",
-      "timing": "Second Quarter",
-      "description": "Rocket mortgage services promotion"
-    },
-    {
-      "brand": "He Gets Us",
-      "title": "What is Greatness",
-      "timing": "Second Quarter",
-      "description": "Religious campaign exploring the concept of greatness through Jesus' teachings"
-    },
-    {
-      "brand": "Liquid Death",
-      "title": "Safe For Work",
-      "timing": "Second Quarter",
-      "description": "Liquid Death water's edgy brand promotes their product as office-appropriate"
-    },
-    {
-      "brand": "HexClad",
-      "title": "Unidentified Frying Object",
-      "timing": "Second Quarter",
-      "description": "HexClad cookware promotion"
-    },
-    {
-      "brand": "Duracell (Berkshire Hathaway)",
-      "title": "Brady Reboost",
-      "celebrity": "Tom Brady",
-      "timing": "Second Quarter",
-      "description": "Tom Brady stars in Duracell's ad about battery power and longevity"
-    },
-    {
-      "brand": "OpenAI",
-      "title": "ChatGPT – The Intelligence Age",
-      "timing": "Second Quarter",
-      "description": "OpenAI's first Super Bowl ad introducing ChatGPT to mainstream audience"
-    },
-    {
-      "brand": "CoffeeMate (Nestle)",
-      "title": "Foam Diva / Tongue meet Cold Foam",
-      "timing": "Second Quarter",
-      "description": "Coffee mate introduces their cold foam product"
-    },
-    {
-      "brand": "Ram Trucks (Stellantis)",
-      "title": "Goldilocks and the Three Trucks",
-      "celebrity": "Glen Powell",
-      "timing": "Second Quarter",
-      "description": "Glen Powell stars in Ram's fairy tale twist finding the truck that's 'just right'"
-    },
-    {
-      "brand": "Hellmann's (Unilever)",
-      "title": "When Sally Met Hellmann's",
-      "timing": "Second Quarter",
-      "description": "Hellmann's parody of 'When Harry Met Sally'"
-    },
-    {
-      "brand": "Pringles (Kellanova)",
-      "title": "The Call of The Mustaches",
-      "timing": "Second Quarter (end)",
-      "description": "Pringles' Mr. P mascot calls mustache-lovers everywhere"
-    },
-    {
-      "brand": "Budweiser (Anheuser-Busch InBev)",
-      "title": "First Delivery",
-      "timing": "Second Quarter",
-      "description": "Budweiser Clydesdales delivering since 1876 - USA Today Ad Meter Winner"
-    },
-    {
-      "brand": "Nike",
-      "title": "So Win",
-      "timing": "Second Quarter",
-      "description": "Nike's inspirational ad about winning and athletic achievement (first Super Bowl ad since 1988)"
-    },
-    {
-      "brand": "NYU Langone Health",
-      "celebrity": "Victor Cruz",
-      "timing": "Second Quarter",
-      "description": "NYU Langone Health with NFL legend Victor Cruz"
-    },
-    {
-      "brand": "Novartis",
-      "title": "Your Attention, Please",
-      "celebrity": "Wanda Sykes",
-      "timing": "Second Quarter",
-      "description": "Wanda Sykes delivers powerful message about breast cancer awareness"
-    },
-    {
-      "brand": "MyFitnessPal",
-      "timing": "Halftime/Third Quarter",
-      "description": "Fitness tracking app promotion"
-    },
-    {
-      "brand": "Yahoo! (Apollo Global/Verizon)",
-      "title": "Email Bill Murray",
-      "celebrity": "Bill Murray",
-      "timing": "Halftime/Third Quarter",
-      "description": "Bill Murray stars in Yahoo's ad promoting their email service"
-    },
-    {
-      "brand": "Southwest Airlines",
-      "timing": "Halftime/Third Quarter",
-      "description": "Southwest Airlines travel promotion"
-    },
-    {
-      "brand": "Jewel-Osco (Albertsons)",
-      "timing": "Halftime/Third Quarter",
-      "description": "Grocery store chain promotion"
-    },
-    {
-      "brand": "Bayer Aspirin",
-      "timing": "Halftime/Third Quarter",
-      "description": "Bayer aspirin health promotion"
-    },
-    {
-      "brand": "On Holding",
-      "celebrity": "Roger Federer",
-      "timing": "Halftime/Third Quarter",
-      "description": "Swiss shoe brand On with Roger Federer and Elmo"
-    },
-    {
-      "brand": "Angel Soft (Georgia-Pacific)",
-      "title": "Potty-tunity",
-      "timing": "Halftime/Third Quarter (before halftime)",
-      "description": "Angel Soft invites viewers to take a bathroom break before halftime"
-    },
-    {
-      "brand": "Reese's (Hershey)",
-      "title": "Don't Eat Lava",
-      "timing": "Halftime/Third Quarter",
-      "description": "Reese's warns against eating lava in PSA-style ad"
-    },
-    {
-      "brand": "Tubi (Fox)",
-      "title": "He was Born to Love Westerns / The Z Suite",
-      "timing": "Halftime/Third Quarter",
-      "description": "Tubi streaming service highlights Western movie collection"
-    },
-    {
-      "brand": "Salesforce",
-      "title": "Gate Expectations",
-      "celebrity": "Matthew McConaughey",
-      "timing": "Halftime/Third Quarter",
-      "description": "Matthew McConaughey stars in Salesforce's ad about AI and customer expectations"
-    },
-    {
-      "brand": "DoorDash",
-      "title": "DashPass Math",
-      "timing": "Halftime/Third Quarter",
-      "description": "DoorDash breaks down the savings math of their DashPass subscription"
-    },
-    {
-      "brand": "Meta Platforms",
-      "title": "Art Prank Gone Wrong / Hey Meta, Who Eats Art?",
-      "timing": "Halftime/Third Quarter",
-      "description": "Meta Ray-Ban smart glasses demonstrations"
-    },
-    {
-      "brand": "Stand Up to Hate",
-      "timing": "Halftime/Third Quarter",
-      "description": "Public service announcement (second appearance)"
-    },
-    {
-      "brand": "NERDS",
-      "title": "NERDS ft. Shaboozey",
-      "celebrity": "Shaboozey",
-      "timing": "Halftime/Third Quarter",
-      "description": "Musician Shaboozey stars in NERDS candy's Super Bowl debut"
-    },
-    {
-      "brand": "Lay's (PepsiCo)",
-      "title": "The Little Farmer",
-      "timing": "Halftime/Third Quarter",
-      "description": "Lay's honors the small farmers who grow their potatoes"
-    },
-    {
-      "brand": "Universal Pictures (Comcast)",
-      "title": "M3gan 2.0",
-      "timing": "Halftime/Third Quarter",
-      "description": "Movie trailer for M3gan sequel"
-    },
-    {
-      "brand": "Taco Bell (Yum! Brands)",
-      "title": "The Fans",
-      "celebrities": ["Doja Cat", "LeBron James"],
-      "timing": "Third Quarter",
-      "description": "Doja Cat and LeBron James celebrate Taco Bell fans"
-    },
-    {
-      "brand": "NerdWallet",
-      "title": "Genius Beluga",
-      "timing": "Halftime/Third Quarter",
-      "description": "NerdWallet uses a genius beluga whale to promote financial wisdom"
-    },
-    {
-      "brand": "Häagen-Dazs",
-      "title": "NOT SO FAST, NOT SO FURIOUS",
-      "timing": "Halftime/Third Quarter",
-      "description": "Häagen-Dazs parodies Fast & Furious with a slow, luxurious ice cream experience - Top ranked ad"
-    },
-    {
-      "brand": "Tubi (Fox)",
-      "timing": "Halftime/Third Quarter",
-      "description": "Tubi second appearance"
-    },
-    {
-      "brand": "Bud Light (Anheuser-Busch InBev)",
-      "title": "Big Men on Cul-De-Sac",
-      "celebrities": ["Post Malone", "Shane Gillis", "Peyton Manning"],
-      "timing": "Third Quarter",
-      "description": "Post Malone, Shane Gillis, and Peyton Manning turn a backyard gathering into a block party"
-    },
-    {
-      "brand": "Hims & Hers Health",
-      "title": "Sick of the System",
-      "timing": "Third Quarter",
-      "description": "Hims & Hers offers affordable access to weight-loss drugs"
-    },
-    {
-      "brand": "Poppi",
-      "title": "Soda Thoughts",
-      "timing": "Third Quarter",
-      "description": "Poppi prebiotic soda shares thoughts on healthier soda alternatives"
-    },
-    {
-      "brand": "Salesforce",
-      "celebrity": "Matthew McConaughey",
-      "timing": "Fourth Quarter",
-      "description": "Salesforce second appearance"
-    },
-    {
-      "brand": "Ramp",
-      "timing": "Fourth Quarter",
-      "description": "Ramp financial services"
-    },
-    {
-      "brand": "Tullamore Dew",
-      "timing": "Fourth Quarter",
-      "description": "Irish whiskey brand promotion"
-    },
-    {
-      "brand": "Toyota",
-      "timing": "Fourth Quarter",
-      "description": "Toyota automotive promotion"
-    },
-    {
-      "brand": "Sandals Resorts",
-      "timing": "Fourth Quarter",
-      "description": "Caribbean resort vacation promotion"
-    },
-    {
-      "brand": "Jeep (Stellantis)",
-      "title": "Owner's Manual",
-      "celebrity": "Harrison Ford",
-      "timing": "Fourth Quarter",
-      "description": "Harrison Ford demonstrates that a Jeep doesn't need an owner's manual"
-    },
-    {
-      "brand": "Tubi (Fox)",
-      "timing": "Fourth Quarter",
-      "description": "Tubi third appearance"
-    },
-    {
-      "brand": "Stella Artois (Anheuser-Busch InBev)",
-      "title": "David & Dave: The Other David",
-      "timing": "Fourth Quarter",
-      "description": "Stella Artois features two Davids in a sophisticated beer ad"
-    },
-    {
-      "brand": "Dove (Unilever)",
-      "title": "Keeping Girls in Sports",
-      "timing": "Fourth Quarter",
-      "description": "Dove's campaign addressing body confidence and sports participation"
-    },
-    {
-      "brand": "Booking.com",
-      "title": "Get your stay ridiculously right",
-      "celebrities": ["The Muppets"],
-      "timing": "Fourth Quarter",
-      "description": "The Muppets star in Booking.com's ad featuring Kermit, Miss Piggy, and more"
-    },
-    {
-      "brand": "Bosch",
-      "title": "The More You Bosch",
-      "celebrities": ["Antonio Banderas", "Fred Savage"],
-      "timing": "Fourth Quarter",
-      "description": "Antonio Banderas and Fred Savage in Bosch's debut Super Bowl ad"
-    },
-    {
-      "brand": "Totino's Pizza Rolls (General Mills)",
-      "title": "Chazmo Finally Goes Home",
-      "celebrities": ["Sam Richardson", "Tim Robinson"],
-      "timing": "Fourth Quarter",
-      "description": "Detroiters stars witness an alien named Chazmo's journey"
-    },
-    {
-      "brand": "GoDaddy",
-      "title": "Act Like You Know / Social Slickness",
-      "timing": "Fourth Quarter",
-      "description": "GoDaddy business services promotion"
-    },
-    {
-      "brand": "Fetch",
-      "title": "The Big Reward",
-      "timing": "Fourth Quarter",
-      "description": "Fetch rewards app highlights loyalty program benefits"
-    },
-    {
-      "brand": "Progressive",
-      "timing": "Post-Game",
-      "description": "Progressive insurance promotion after Eagles victory"
-    },
-    {
-      "brand": "Adidas",
-      "timing": "Post-Game",
-      "description": "Adidas athletic wear promotion"
-    },
-    {
-      "brand": "Cirkul",
-      "timing": "Post-Game",
-      "description": "Cirkul second appearance post-game"
-    },
-    {
-      "brand": "Vrbo (Expedia Group)",
-      "celebrity": "Nick Saban",
-      "timing": "Post-Game",
-      "description": "Nick Saban stars as strict vacation rental host"
-    },
-    {
-      "brand": "Universal Resorts",
-      "timing": "Post-Game",
-      "description": "Universal theme parks and resorts promotion"
-    },
-    {
-      "brand": "Energy Transfer",
-      "timing": "Post-Game",
-      "description": "Energy company promotion"
+  "super_bowl_metadata": {
+    "event": "Super Bowl LIX (59)",
+    "date": "February 9, 2025",
+    "day_of_week": "Sunday",
+    "location": "Caesars Superdome, New Orleans, Louisiana",
+    "teams": {
+      "winner": "Philadelphia Eagles",
+      "loser": "Kansas City Chiefs"
+    },
+    "final_score": "Eagles 40, Chiefs 22",
+    "mvp": "Jalen Hurts (Philadelphia Eagles QB)",
+    "halftime_performer": "Kendrick Lamar (with SZA, Samuel L. Jackson, Serena Williams, Mustard)",
+    "attendance": "Not disclosed",
+    "broadcast": {
+      "network": "Fox Corporation",
+      "streaming": "Tubi (free)",
+      "average_viewers": "126 million",
+      "peak_viewers": "135.7 million (second quarter)",
+      "most_watched_super_bowl": true
     }
-  ],
-  "total_ads": 100,
-  "usa_today_ad_meter_top_10": [
-    "Budweiser - First Delivery",
-    "Lay's - The Little Farmer",
-    "Michelob Ultra - The ULTRA Hustle",
-    "Stella Artois - David and Dave",
-    "NFL - Somebody",
-    "NFL - Flag 50",
-    "Bud Light - Big Men on Cul-De-Sac",
-    "Uber Eats - Century of Cravings",
-    "Hellmann's - When Sally Met Hellmann's",
-    "Pfizer - Knock Out"
-  ],
-  "usa_today_ad_meter_bottom_10": [
-    "Tubi - The Z Suite",
-    "Fetch - The Big Reward",
-    "CoffeeMate - Foam Diva",
-    "Cirkul - You Got Cirkul",
-    "OpenAI - ChatGPT: The Intelligence Age",
-    "Squarespace - A Tale As Old As Websites",
-    "T-Mobile - A New Era in Connectivity",
-    "DoorDash - DashPass Math",
-    "Hims & Hers - Sick of the System",
-    "GoDaddy - Act Like You Know"
-  ],
-  "notes": {
-    "source": "Real-time commercial tracking by Benzinga during Super Bowl LIX broadcast, February 9, 2025",
-    "timing_categories": "Commercials organized by when they aired: After National Anthem, After Coin Toss, First Quarter, Second Quarter, Halftime/Third Quarter, Fourth Quarter, and Post-Game",
-    "ad_pricing_note": "30-second ad slots sold for $7-8 million, with some last-minute slots selling for $8 million or more",
-    "viewership_note": "Most-watched Super Bowl in history with 126 million average viewers and peak of 135.7 million during second quarter",
-    "winner_note": "Anheuser-Busch InBev dominated USA Today Ad Meter with 4 ads in top 10 (Budweiser #1, Michelob Ultra #3, Stella Artois #4, Bud Light #7)",
-    "kanye_controversy": "Kanye West bought local ad time on 4 Fox stations promoting Yeezy website; after airing, site showed swastika merchandise and was taken down by Shopify",
-    "nike_note": "Nike aired first Super Bowl ad since 1988, focusing on women's sports",
-    "limitations": "Exact clock timestamps (specific game time) not publicly available; timing based on quarter/broadcast segments"
-  }
+  },
+
+  "real_time_game_moments": {
+    "description": "Key game events with timestamps that triggered social media spikes and business opportunities",
+    "quarter_by_quarter_scoring": {
+      "Q1": {
+        "time_remaining": "6:15",
+        "event": "Eagles first score - Jalen Hurts 'Tush Push' TD",
+        "score": "Eagles 7-0",
+        "social_spike": "moderate",
+        "business_hook": "Touchdown celebrations, underdog beginnings, food delivery surge begins",
+        "hashtags": ["#FlyEaglesFly", "#TushPush"],
+        "marketing_angle": "First blood! Start 'touchdown deals' - discounts whenever Eagles score"
+      },
+      "Q1_late": {
+        "event": "Jake Elliott 48-yard field goal",
+        "score": "Eagles 10-0",
+        "social_spike": "low",
+        "business_hook": "Building momentum, defensive showdown narrative"
+      },
+      "Q2_midpoint": {
+        "time_remaining": "7:00+",
+        "event": "Cooper DeJean 38-yard Pick-6 (on his 22nd birthday)",
+        "score": "Eagles 17-0",
+        "social_spike": "HIGH - viral birthday moment",
+        "business_hook": "Birthday celebration angle, underdog rookie story, Chiefs collapse begins",
+        "hashtags": ["#BirthdayBoy", "#DeJean", "#Pick6"],
+        "marketing_angle": "Birthday specials! 'Celebrate like Cooper' - 22% off for 22 minutes",
+        "viral_potential": "VERY HIGH - first player ever to score Super Bowl TD on birthday"
+      },
+      "Q2_late": {
+        "time_remaining": "1:35",
+        "event": "Jalen Hurts to A.J. Brown 12-yard TD (after Zack Baun interception)",
+        "score": "Eagles 24-0 at halftime",
+        "social_spike": "EXTREME - blowout narrative solidifies",
+        "business_hook": "Complete domination, Chiefs three-peat dream dying, 'game over' sentiment",
+        "hashtags": ["#Blowout", "#ChiefsChoke", "#EaglesDefense"],
+        "marketing_angle": "Halftime blowout sales - 'The game's decided, shop now!'"
+      },
+      "halftime": {
+        "event": "Kendrick Lamar performs with Drake diss 'Not Like Us'",
+        "social_spike": "MASSIVE - 33,000 mentions per minute peak",
+        "business_hook": "Drake vs Kendrick beef, hip-hop culture, generational moment",
+        "hashtags": ["#KendrickLamar", "#NotLikeUs", "#DrakeIsOver", "#SuperBowlHalftime"],
+        "marketing_angle": "Music-themed promotions, 'Not Like Us' deals for loyal customers",
+        "viral_potential": "EXTREME - 80 million social engagements, 183,000 posts by 11pm",
+        "engagement_note": "Sustained engagement vs single spike - viewers fully absorbed"
+      },
+      "Q3_mid": {
+        "event": "DeVonta Smith 46-yard TD reception",
+        "score": "Eagles 34-0",
+        "social_spike": "VERY HIGH - historic blowout",
+        "business_hook": "Largest deficit in Patrick Mahomes career (34 points), Chiefs humiliation",
+        "hashtags": ["#HistoricBlowout", "#MahomesWoes"],
+        "marketing_angle": "34% off deals - match the lead!"
+      },
+      "Q3_late": {
+        "time_remaining": "End of quarter",
+        "event": "Xavier Worthy 24-yard TD (Chiefs first score)",
+        "score": "Eagles 34-6",
+        "social_spike": "HIGHEST GAME SPIKE - 5:43 PM PST",
+        "business_hook": "Chiefs finally score! Relief for KC fans, momentum shift hope",
+        "hashtags": ["#ChiefsAlive", "#FirstBlood"],
+        "marketing_angle": "Better late than never - 'late arrival' discounts",
+        "note": "Biggest social media spike of entire game occurred when Chiefs scored first points"
+      },
+      "Q4": {
+        "event": "Jake Elliott field goals + Chiefs garbage time TDs",
+        "score": "Final 40-22",
+        "social_spike": "declining",
+        "business_hook": "Game winding down, post-game party mode, Eagles celebration"
+      }
+    },
+    "key_defensive_moments": {
+      "mahomes_sacked_6_times": {
+        "impact": "Career high for Mahomes",
+        "social_sentiment": "shock, disbelief",
+        "business_hook": "Chiefs dynasty crumbling narrative"
+      },
+      "mahomes_3_turnovers": {
+        "breakdown": "2 interceptions (1 pick-6), 1 fumble",
+        "social_sentiment": "Chiefs fans devastated",
+        "business_hook": "Turnover = turn to our deals"
+      },
+      "chiefs_shutout_streak": {
+        "duration": "9 consecutive drives without scoring",
+        "record": "Longest in any Mahomes start",
+        "business_hook": "Drought-breaking promotions"
+      }
+    }
+  },
+
+  "viral_social_moments": {
+    "description": "Trending topics, memes, and cultural moments businesses can capitalize on",
+    "top_viral_moments": [
+      {
+        "rank": 1,
+        "moment": "Kendrick Lamar 'Not Like Us' Halftime Performance",
+        "social_reach": "80 million engagements, 183,000 posts",
+        "peak_mentions": "33,000 per minute",
+        "sentiment": "63% positive",
+        "cultural_context": "Drake diss track performed to 100+ million viewers, Drake 'publicly executed'",
+        "hashtags": ["#NotLikeUs", "#KendrickLamar", "#DrakeIsOver", "#HalftimeShow"],
+        "meme_themes": ["Drake crying", "Drake punching air", "Kendrick dominance", "Drake listed as 'deceased' on Wikipedia"],
+        "business_applications": [
+          "Music/entertainment stores: Kendrick merchandise rush",
+          "Bars/restaurants: Hip-hop themed watch parties",
+          "Streaming services: Drake vs Kendrick playlists",
+          "Social media: 'Not like your competitors' positioning"
+        ]
+      },
+      {
+        "rank": 2,
+        "moment": "Travis Kelce Sideline Meltdown",
+        "social_sentiment": "mocking, frustrated",
+        "cultural_context": "Kelce yelling at Andy Reid, visible frustration throughout game",
+        "hashtags": ["#Kelce", "#TaylorSwift", "#ChiefsLoss"],
+        "meme_themes": ["Kelce yelling won't bring Taylor back", "Relationship is over jokes", "Anger management"],
+        "business_applications": [
+          "Therapy/wellness: 'Manage your emotions better' angle",
+          "Sports bars: 'Vent your frustrations here'",
+          "Relationship counseling: Timely humor tie-ins"
+        ]
+      },
+      {
+        "rank": 3,
+        "moment": "Cooper DeJean Birthday Pick-6",
+        "unique_factor": "First player ever to score Super Bowl TD on birthday",
+        "age": "22nd birthday",
+        "social_sentiment": "heartwarming, celebratory",
+        "hashtags": ["#BirthdayBoy", "#DeJean22", "#RookieMagic"],
+        "business_applications": [
+          "Birthday promotions: '22% off for 22 minutes'",
+          "Bakeries: Birthday cake rush orders",
+          "Party supplies: Last-minute celebration gear",
+          "Sporting goods: Jersey sales spike"
+        ]
+      },
+      {
+        "rank": 4,
+        "moment": "Donald Trump Entrance/Attendance",
+        "social_sentiment": "polarized, meme-heavy",
+        "cultural_context": "Trump treated like 'main event', grand entrance",
+        "hashtags": ["#Trump", "#Politics", "#SuperBowl"],
+        "business_applications": [
+          "Political merchandise",
+          "Avoid or capitalize based on brand values",
+          "Polarizing but high engagement"
+        ]
+      },
+      {
+        "rank": 5,
+        "moment": "Taylor Swift Chiefs Loss Reactions",
+        "cultural_context": "Swift attended to support Kelce, Chiefs lost badly",
+        "hashtags": ["#TaylorSwift", "#Swifties", "#KelceSwift"],
+        "meme_themes": ["Kelce and Taylor breakup jokes", "Swift curse on Chiefs", "Relationship doomed"],
+        "business_applications": [
+          "Relationship advice content",
+          "Swift-themed consolation products",
+          "Celebrity gossip angle"
+        ]
+      },
+      {
+        "rank": 6,
+        "moment": "'Superb Owl' Meme Annual Return",
+        "tradition": "Originates from 2008 typo, annual Super Bowl alternative",
+        "hashtags": ["#SuperbOwl"],
+        "business_applications": [
+          "Pet stores: Owl-themed products",
+          "Nature brands: Owl conservation tie-ins",
+          "Quirky brands: Alternative Super Bowl content"
+        ]
+      },
+      {
+        "rank": 7,
+        "moment": "Eagles Dominance 'Treating Chiefs Like They Owe Money'",
+        "score_context": "34-0 at one point, final 40-22",
+        "hashtags": ["#EaglesDominance", "#ChiefsHumiliation"],
+        "business_applications": [
+          "Debt collection humor (carefully)",
+          "Financial services: 'Dominant returns' messaging",
+          "Competitive positioning against rivals"
+        ]
+      },
+      {
+        "rank": 8,
+        "moment": "Barack Obama Eagles Endorsement",
+        "impact": "Significantly drove engagement around Coach Nick Sirianni",
+        "sentiment": "Positive, influential",
+        "business_applications": [
+          "Political/civic brands",
+          "Philadelphia-area businesses",
+          "Endorsement power demonstration"
+        ]
+      }
+    ],
+    "social_media_metrics": {
+      "total_mentions": "36.8 million interactions",
+      "total_reach": "9 billion",
+      "conversation_themes": {
+        "game_itself": "44%",
+        "kendrick_lamar": "Significant portion",
+        "personalities": "Tom Brady, Nick Sirianni, Andy Reid mentions"
+      },
+      "most_mentioned_team": "Philadelphia Eagles - 86,500 mentions",
+      "sentiment_breakdown": {
+        "positive": "63%",
+        "neutral": "~25%",
+        "negative": "~12%"
+      }
+    }
+  },
+
+  "commercial_performance_data": {
+    "description": "Ad performance metrics for businesses to benchmark and react to",
+    "top_performing_ads": {
+      "usa_today_ad_meter_winners": [
+        {
+          "rank": 1,
+          "brand": "Budweiser",
+          "title": "First Delivery",
+          "sentiment": "Overwhelmingly positive",
+          "themes": ["Clydesdales", "Heritage", "Nostalgia", "American tradition"],
+          "business_lesson": "Nostalgia + brand heritage wins",
+          "competitor_response": "Lean into your origin story"
+        },
+        {
+          "rank": 2,
+          "brand": "Lay's",
+          "title": "The Little Farmer",
+          "themes": ["Authenticity", "Farm-to-table", "Small business"],
+          "business_lesson": "Honoring suppliers/partners resonates",
+          "competitor_response": "Highlight your supply chain heroes"
+        },
+        {
+          "rank": 3,
+          "brand": "Michelob ULTRA",
+          "title": "The ULTRA Hustle",
+          "celebrities": ["Willem Dafoe", "Catherine O'Hara"],
+          "themes": ["Pickleball", "Active lifestyle", "Humor"],
+          "business_lesson": "Celebrity + trending sports (pickleball) = engagement",
+          "competitor_response": "Tie into trending fitness movements"
+        }
+      ],
+      "worst_performing_ads": [
+        {
+          "rank": "Bottom 1",
+          "brand": "Tubi",
+          "title": "The Z Suite",
+          "reception": "Poorly received",
+          "business_lesson": "Quirky doesn't always work",
+          "avoid": "Being too weird without clear message"
+        },
+        {
+          "rank": "Bottom 2",
+          "brand": "Fetch",
+          "title": "The Big Reward",
+          "reception": "Low engagement",
+          "business_lesson": "Rewards programs need emotional hook",
+          "avoid": "Purely transactional messaging"
+        },
+        {
+          "rank": "Bottom 3",
+          "brand": "CoffeeMate",
+          "title": "Foam Diva",
+          "reception": "First Super Bowl ad, flopped",
+          "business_lesson": "First impressions matter - don't rush it",
+          "avoid": "Forcing product features without story"
+        }
+      ]
+    },
+    "viral_ad_trends": {
+      "most_shared_commercials": [
+        {
+          "brand": "Instacart",
+          "element": "Kool-Aid Man, Pillsbury Doughboy (mascot nostalgia)",
+          "hashtag": "#MascotMadness",
+          "virality": "Trended within minutes",
+          "business_insight": "Beloved characters = instant shareability"
+        },
+        {
+          "brand": "Booking.com",
+          "element": "The Muppets",
+          "views": "95 million (most viewed ad)",
+          "sentiment": "Mixed (high views but negative sentiment)",
+          "business_insight": "Views ≠ positive reception; measure sentiment"
+        },
+        {
+          "brand": "Hellmann's",
+          "element": "When Harry Met Sally reunion (Meg Ryan, Billy Crystal)",
+          "theme": "Celebrity nostalgia",
+          "business_insight": "Recreating classic moments drives shares"
+        }
+      ],
+      "brand_partnerships": {
+        "pringles_little_caesars": {
+          "theme": "Facial hair bonding (mustaches + bushy brows)",
+          "execution": "Instagram collab post",
+          "lesson": "Playful brand partnerships humanize companies"
+        },
+        "coors_light_peloton": {
+          "theme": "Post-game workout challenges",
+          "timing": "Immediately after game",
+          "lesson": "Real-time brand collaboration amplifies reach"
+        },
+        "tostitos_avocados_from_mexico": {
+          "theme": "Chip and guac pairing",
+          "message": "It's not a party without BOTH of us",
+          "lesson": "Natural product pairings create authentic partnerships"
+        }
+      }
+    },
+    "non_advertisers_who_won": {
+      "description": "Brands that hacked the Super Bowl without paying for ads",
+      "winners": [
+        {
+          "brand": "e.l.f. Beauty",
+          "strategy": "Skipped $7M ad, created 'The e.l.f. Time Show' live stream",
+          "platforms": ["YouTube", "TikTok", "Twitch", "Instagram"],
+          "result": "Massive engagement without ad cost",
+          "business_lesson": "Alternative activations can beat traditional ads"
+        },
+        {
+          "brand": "Skittles",
+          "strategy": "Called X post 'Our Big Game ad' - mocked expensive ads",
+          "tone": "Self-aware, frugal humor",
+          "business_lesson": "Acknowledge what you're NOT doing can be powerful"
+        },
+        {
+          "brand": "Ulta Beauty",
+          "strategy": "Mocked NFL clear bag policy with beauty product humor",
+          "message": "Beauty girlies bringing 10-step routine to game",
+          "business_lesson": "Commentary on event rules creates relatability"
+        },
+        {
+          "brand": "AriZona Iced Tea",
+          "strategy": "Roasted ad budgets: 'Not wasting millions on commercial'",
+          "engagement": "245K+ likes",
+          "business_lesson": "Brand consistency (low prices) + humor = viral"
+        }
+      ]
+    }
+  },
+
+  "business_reaction_triggers": {
+    "description": "Specific moments mapped to immediate business actions",
+    "trigger_framework": [
+      {
+        "trigger_type": "Score-based",
+        "examples": [
+          {
+            "event": "Team scores touchdown",
+            "immediate_action": "Flash sale: '$X off for next X minutes'",
+            "messaging": "'Touchdown deal! Score big with us'",
+            "duration": "5-15 minutes (urgency critical)",
+            "platforms": ["Email", "SMS", "Social media", "App push"],
+            "industries": ["Restaurants", "Retail", "Entertainment", "Delivery"]
+          },
+          {
+            "event": "Blowout game (24+ point lead)",
+            "immediate_action": "Early bird specials, halftime sales",
+            "messaging": "'Game's over early - shop now!'",
+            "psychology": "Viewers checking out, ready to shop",
+            "industries": ["E-commerce", "Food delivery"]
+          },
+          {
+            "event": "Close game (within 7 points)",
+            "immediate_action": "Delay promotions until after game",
+            "messaging": "Wait for outcome, then celebrate/console",
+            "psychology": "Full attention on game, don't interrupt",
+            "industries": ["All"]
+          }
+        ]
+      },
+      {
+        "trigger_type": "Viral moment",
+        "examples": [
+          {
+            "event": "Celebrity meme goes viral (Drake, Kelce, etc.)",
+            "immediate_action": "Create reaction content within 5-15 minutes",
+            "messaging": "Jump on trending hashtags with relevant take",
+            "content_types": ["Memes", "GIFs", "Quick videos", "Text posts"],
+            "platforms": ["Twitter/X", "Instagram", "TikTok"],
+            "industries": ["Entertainment", "Food", "Retail", "Service"]
+          },
+          {
+            "event": "Halftime show moment",
+            "immediate_action": "Music-themed promotions, playlist tie-ins",
+            "messaging": "Reference lyrics, artist, performance elements",
+            "timing": "During halftime and 30min after",
+            "industries": ["Streaming", "Music retail", "Bars", "Restaurants"]
+          },
+          {
+            "event": "Controversial call/moment",
+            "immediate_action": "Take a stance or make light of controversy",
+            "messaging": "Playful commentary on fairness, refs, rules",
+            "caution": "Don't alienate fan bases",
+            "industries": ["Sports bars", "Betting", "Sports retail"]
+          }
+        ]
+      },
+      {
+        "trigger_type": "Commercial reaction",
+        "examples": [
+          {
+            "event": "Competitor airs Super Bowl ad",
+            "immediate_action": "Counter-programming content",
+            "messaging": "'We didn't waste millions, we're passing savings to you'",
+            "tone": "Confident, value-focused",
+            "industries": ["Direct competitors"]
+          },
+          {
+            "event": "Viral ad moment (mascots, celebrities, etc.)",
+            "immediate_action": "Ride the wave with related content",
+            "messaging": "Reference popular ad elements in your context",
+            "timing": "Within 10 minutes of ad airing",
+            "industries": ["All brands"]
+          }
+        ]
+      },
+      {
+        "trigger_type": "Team-based",
+        "examples": [
+          {
+            "event": "Local team winning",
+            "immediate_action": "Victory sales, celebration promotions",
+            "messaging": "'Celebrate with us! [Team] victory specials'",
+            "timing": "Immediately after win",
+            "duration": "24-48 hours",
+            "industries": ["Local businesses in winning city"]
+          },
+          {
+            "event": "Local team losing",
+            "immediate_action": "Consolation offers, 'better luck next year'",
+            "messaging": "'We feel your pain. Here's something to cheer you up'",
+            "tone": "Empathetic, not mocking",
+            "industries": ["Local businesses in losing city"]
+          }
+        ]
+      }
+    ]
+  },
+
+  "industry_specific_playbooks": {
+    "description": "Tailored strategies for different business types",
+    "restaurants_bars": {
+      "pre_game": [
+        "Game day menu specials",
+        "Wing/appetizer bundles",
+        "Drink specials by quarter",
+        "Reserve seating for big groups"
+      ],
+      "during_game": [
+        "Touchdown shot specials",
+        "Score-matching discounts (Eagles score 7, get 7% off)",
+        "Halftime food rush prep",
+        "Social media photo contests"
+      ],
+      "post_game": [
+        "Victory/consolation drink specials",
+        "Late-night menu extensions",
+        "Next-day hangover specials"
+      ],
+      "viral_moment_reactions": [
+        "Kendrick halftime: Hip-hop playlist, Drake-free menu item",
+        "Birthday pick-6: Birthday shots for Cooper DeJean",
+        "Blowout: 'Game over early' dessert specials"
+      ]
+    },
+    "retail_ecommerce": {
+      "pre_game": [
+        "Jersey/merch flash sales",
+        "Party supply bundles",
+        "Last-minute delivery options"
+      ],
+      "during_game": [
+        "Real-time social media engagement",
+        "Score-based discount codes",
+        "Halftime email campaigns"
+      ],
+      "post_game": [
+        "Winner celebration sales",
+        "Loser consolation bundles",
+        "Championship merchandise rush orders"
+      ],
+      "viral_moment_reactions": [
+        "Trending hashtag product collections",
+        "Meme-inspired product names",
+        "Celebrity tie-in merchandise"
+      ]
+    },
+    "delivery_services": {
+      "high_order_times": [
+        "Pre-kickoff: 4-6 PM",
+        "Halftime: 15-min window",
+        "Post-game: 9-11 PM"
+      ],
+      "surge_pricing_strategy": "Transparent communication about demand",
+      "promotions": [
+        "Free delivery on orders over $X during game",
+        "Touchdown = faster delivery promise",
+        "Blowout game = early delivery bonuses"
+      ]
+    },
+    "entertainment_streaming": {
+      "pre_game": [
+        "Viewing party content",
+        "Super Bowl history documentaries",
+        "Player/team profiles"
+      ],
+      "during_game": [
+        "Second-screen content (stats, behind-scenes)",
+        "Alternative streams (player cams, all-22)"
+      ],
+      "post_game": [
+        "Instant highlight reels",
+        "Post-game analysis shows",
+        "Championship celebration content"
+      ],
+      "halftime": [
+        "Kendrick Lamar playlist promotions",
+        "Music streaming tie-ins",
+        "Artist catalogs"
+      ]
+    },
+    "sports_betting": {
+      "prop_bets": "MVP, first touchdown, total points",
+      "in_game_betting": "Live odds updates by quarter",
+      "viral_moments": "Novelty bets on memes, commercials",
+      "responsible_gaming": "Mandatory messaging during blowouts"
+    }
+  },
+
+  "content_templates": {
+    "description": "Ready-to-deploy messaging for different scenarios",
+    "social_media_posts": {
+      "touchdown_celebration": {
+        "template": "TOUCHDOWN! 🏈 Just like [Team], we're scoring big for YOU! Get [X]% off for the next [Y] minutes. #SuperBowl #[TeamHashtag]",
+        "platforms": ["Twitter", "Instagram", "Facebook"],
+        "timing": "Within 60 seconds of score"
+      },
+      "halftime_sales": {
+        "template": "Halftime = Half-off! 🎵 While [Performer] entertains, we're bringing the deals. Shop now: [link]",
+        "platforms": ["All"],
+        "timing": "During halftime show"
+      },
+      "blowout_reaction": {
+        "template": "This game is OVER. 😅 But our deals are just getting started! [specific offer] #SuperBowl",
+        "tone": "Lighthearted, not mean-spirited",
+        "timing": "When lead exceeds 21 points"
+      },
+      "viral_meme_jump": {
+        "template": "[Trending meme reference] and just like that, we're here with [relevant offer]. #[TrendingHashtag]",
+        "requirement": "Must be posted within 5-10 minutes of moment",
+        "platforms": ["Twitter/X", "Instagram", "TikTok"]
+      },
+      "post_game_winner": {
+        "template": "CHAMPIONS! 🏆 Congratulations [Team]! Celebrate with us: [victory special]",
+        "timing": "Immediately after final whistle",
+        "duration": "24-48 hours"
+      },
+      "post_game_loser": {
+        "template": "Tough loss, [Team] fans. We're here for you. Use code NEXTYEAR for [consolation offer] 💚",
+        "tone": "Empathetic, genuine",
+        "timing": "30 minutes after game ends"
+      }
+    },
+    "email_campaigns": {
+      "halftime_blast": {
+        "subject": "⏰ Halftime = Deal Time! [X]% off while Kendrick performs",
+        "send_time": "Kickoff of halftime show",
+        "content": "Quick CTA, mobile-optimized, single clear offer"
+      },
+      "post_game_segmented": {
+        "winners_email": {
+          "subject": "🏆 Victory Sale! Celebrate [Team]'s Championship",
+          "segment": "Subscribers in winning city",
+          "timing": "Within 30 minutes of game end"
+        },
+        "losers_email": {
+          "subject": "We feel your pain. Here's something to cheer you up ❤️",
+          "segment": "Subscribers in losing city",
+          "timing": "1 hour after game end",
+          "tone": "Consoling, genuine"
+        },
+        "neutral_email": {
+          "subject": "Super Bowl = Super Deals! Championship savings inside",
+          "segment": "All other subscribers",
+          "timing": "1-2 hours after game"
+        }
+      }
+    },
+    "sms_alerts": {
+      "touchdown_flash": {
+        "message": "⚡ TOUCHDOWN DEAL! [X]% off for next 10 min. Shop: [shortlink]",
+        "character_limit": 160,
+        "timing": "Within 30 seconds of score",
+        "frequency_cap": "Max 2 per game"
+      },
+      "halftime_reminder": {
+        "message": "🎵 Halftime special! [Offer] expires when game resumes. Act now: [link]",
+        "timing": "5 minutes into halftime"
+      }
+    }
+  },
+
+  "ai_automation_data_points": {
+    "description": "Structured data for AI systems to auto-trigger campaigns",
+    "real_time_monitoring_feeds": {
+      "game_api": "Real-time score, play-by-play data",
+      "social_listening": "Twitter API, trending hashtags, mention volume",
+      "sentiment_analysis": "Positive/negative/neutral ratios per moment",
+      "commercial_tracking": "Ad airings, brand mentions, USA Today Ad Meter live updates",
+      "viewership_data": "Nielsen real-time ratings, streaming metrics"
+    },
+    "trigger_thresholds": {
+      "score_differential_alert": "When lead exceeds 14 points",
+      "viral_moment_threshold": "When hashtag gets 10,000+ mentions in 5 minutes",
+      "commercial_reaction_speed": "Deploy content within 5-10 minutes of ad airing",
+      "sentiment_shift": "When sentiment changes by 20%+ in 10 minutes"
+    },
+    "automation_rules": {
+      "touchdown_scored": {
+        "condition": "Team scores touchdown",
+        "action": "Auto-generate discount code",
+        "channels": ["Social media post", "SMS to opted-in users", "Website banner"],
+        "duration": "10 minutes",
+        "personalization": "If customer's favorite team scored, increase discount"
+      },
+      "halftime_begins": {
+        "condition": "Clock shows 0:00 in Q2",
+        "action": "Send pre-written halftime email",
+        "target": "Engaged email subscribers",
+        "timing": "Immediately"
+      },
+      "viral_moment_detected": {
+        "condition": "Hashtag velocity exceeds threshold",
+        "action": "Alert marketing team + auto-draft social posts using trending hashtag",
+        "approval": "Human review required before posting",
+        "timing": "Within 3 minutes of detection"
+      },
+      "game_blowout": {
+        "condition": "Score differential > 21 points AND time remaining < 20 minutes",
+        "action": "Shift messaging to post-game mode early",
+        "messaging": "Game's decided, focus on us now",
+        "channels": ["Social", "Email"]
+      },
+      "post_game": {
+        "condition": "Game ends (clock 0:00 Q4)",
+        "action": "Deploy winner/loser/neutral email campaigns",
+        "segmentation": "By geography, team preference, engagement history",
+        "timing": "Stagger sends: winners (immediate), losers (30 min), neutral (1 hour)"
+      }
+    }
+  },
+
+  "competitive_intelligence": {
+    "description": "What your competitors might do - and how to counter",
+    "common_competitor_moves": [
+      {
+        "move": "Touchdown discount matching",
+        "counter": "Offer longer duration or higher percentage",
+        "differentiation": "Add unique value (free shipping, bonus item)"
+      },
+      {
+        "move": "Post-game celebration sales",
+        "counter": "Start yours 30 minutes earlier to capture demand first",
+        "differentiation": "More generous terms, clearer messaging"
+      },
+      {
+        "move": "Viral moment meme-jacking",
+        "counter": "Be faster (5 min vs their 15 min)",
+        "differentiation": "More authentic voice, better execution"
+      },
+      {
+        "move": "Generic 'Super Bowl Sale'",
+        "counter": "Specific tie-ins to actual game moments",
+        "differentiation": "Shows you're actually watching, not pre-scheduled"
+      }
+    ]
+  },
+
+  "risk_mitigation": {
+    "description": "What NOT to do during Super Bowl real-time marketing",
+    "avoid": [
+      {
+        "mistake": "Insensitive humor about losing team",
+        "consequence": "Alienate large fan base",
+        "example": "Don't mock Chiefs fans after blowout loss"
+      },
+      {
+        "mistake": "Over-promotion during close game",
+        "consequence": "Ignored, seen as tone-deaf",
+        "rule": "Wait for commercial breaks or post-game if game is close"
+      },
+      {
+        "mistake": "Jumping on every trend",
+        "consequence": "Looks desperate, off-brand",
+        "rule": "Only engage with trends that fit your brand"
+      },
+      {
+        "mistake": "Typos/errors in rushed posts",
+        "consequence": "Embarrassment, unprofessional",
+        "solution": "Template library + quick review process"
+      },
+      {
+        "mistake": "Pre-scheduling 'real-time' content",
+        "consequence": "Gets exposed, looks inauthentic",
+        "rule": "Only pre-write, don't pre-schedule"
+      },
+      {
+        "mistake": "Political controversy",
+        "consequence": "Alienate 50% of audience",
+        "rule": "Avoid Trump, political figures unless that's your brand"
+      }
+    ]
+  },
+
+  "success_metrics": {
+    "description": "KPIs to measure real-time marketing effectiveness",
+    "track": {
+      "engagement_rate": "Likes, comments, shares per post vs baseline",
+      "conversion_rate": "Sales from real-time campaigns vs normal",
+      "speed_to_market": "Minutes from event to post/email deployment",
+      "reach": "Impressions, unique viewers of content",
+      "revenue": "Direct attribution to Super Bowl campaigns",
+      "brand_sentiment": "Positive vs negative mentions during/after",
+      "competitive_share_of_voice": "Your mentions vs competitors during game",
+      "customer_acquisition": "New customers from Super Bowl campaigns"
+    },
+    "benchmarks": {
+      "good_engagement_rate": "3-5x normal rate during viral moments",
+      "good_conversion_rate": "2-3x normal rate for time-sensitive offers",
+      "ideal_speed": "Social posts within 5 minutes, emails within 15 minutes"
+    }
+  },
+
+  "2025_super_bowl_lix_specific_insights": {
+    "what_made_this_year_unique": [
+      "Most-watched Super Bowl ever (126M avg, 135.7M peak)",
+      "Historic blowout (40-22, Eagles dominated)",
+      "Kendrick Lamar Drake diss = cultural moment",
+      "Chiefs three-peat dream destroyed",
+      "Cooper DeJean birthday TD = feel-good story",
+      "Nike's first Super Bowl ad since 1988",
+      "Biggest social spike when Chiefs FINALLY scored (relief moment)"
+    ],
+    "missed_opportunities_from_brands": [
+      "Few brands capitalized on Drake diss moment quickly enough",
+      "Blowout meant late-game ad buys were wasted (viewers checked out)",
+      "Birthday moment underutilized by gift/celebration brands",
+      "Taylor Swift relationship angle mostly ignored by brands"
+    ],
+    "what_worked_best": [
+      "Nostalgia (Budweiser Clydesdales, Hellmann's Harry Met Sally reunion)",
+      "Beloved characters (Muppets, mascots)",
+      "Humor + celebrities (Michelob ULTRA, Pringles)",
+      "Non-advertisers who hacked the conversation (e.l.f. Beauty, AriZona)"
+    ]
+  },
+
+  "future_applications": {
+    "description": "How to use this data for Super Bowl LX and beyond",
+    "pattern_recognition": "Identify recurring viral moments (Drake beefs, celebrity memes, underdog stories)",
+    "predictive_modeling": "Anticipate which moments will trend based on social velocity",
+    "automated_content_generation": "AI writes initial drafts of social posts for human review",
+    "dynamic_pricing": "Adjust discounts based on game excitement level",
+    "hyper_personalization": "Different offers for Chiefs vs Eagles fans vs neutral viewers",
+    "cross_platform_orchestration": "Coordinated campaigns across social, email, SMS, web, app",
+    "real_time_competitor_monitoring": "Track what competitors post and counter immediately",
+    "sentiment_adaptive_messaging": "Change tone based on whether audience is happy or sad"
+  },
+
+  "data_sources": {
+    "game_data": "ESPN, Pro-Football-Reference, Fox Sports",
+    "social_data": "Fastly real-time monitoring, Digimind social listening, Viral Nation analysis",
+    "commercial_data": "USA Today Ad Meter, Benzinga real-time tracking, iSpot.tv",
+    "viral_moments": "Thunder Dungeon meme analysis, Daily Dot, BuzzFeed, Pleated Jeans",
+    "business_intelligence": "Viral Nation marketing analysis, Digital Toppers trend reports"
+  },
+
+  "timestamp_last_updated": "2026-02-08T19:30:00Z"
 }
