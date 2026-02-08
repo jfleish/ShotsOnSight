@@ -5,6 +5,21 @@ import { getSocket, joinSession, leaveSession } from '@/lib/socket';
 
 const generateId = () => Math.random().toString(36).substring(2, 9);
 
+const mapPlayer = (p: any): Player => ({
+  id: p.playerId,
+  name: p.name,
+  team: p.team as Team,
+  mode: p.mode,
+  beerBrand: p.beerBrand || 'Bud Light',
+  focusedOn: p.focusedOn || 'None',
+  sips: p.sips || 0,
+  shots: p.shots || 0,
+  shotguns: p.shotguns || 0,
+  lastDrinkTime: p.lastDrinkTime || 0,
+  lastShotTime: p.lastShotTime || 0,
+  lastShotgunTime: p.lastShotgunTime || 0,
+});
+
 export function useGameEngine() {
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [gameId, setGameId] = useState<string | null>(null);
@@ -77,18 +92,7 @@ export function useGameEngine() {
       setWinProbDelta(data.winProbDelta || 0);
 
       // Map server player state to client Player format
-      const players: Player[] = (data.players || []).map((p: any) => ({
-        id: p.playerId,
-        name: p.name,
-        team: p.team as Team,
-        mode: p.mode,
-        sips: p.sips,
-        shots: p.shots,
-        shotguns: p.shotguns,
-        lastDrinkTime: p.lastDrinkTime,
-        lastShotTime: p.lastShotTime,
-        lastShotgunTime: p.lastShotgunTime,
-      }));
+      const players: Player[] = (data.players || []).map(mapPlayer);
 
       let newAlert: DrinkAssignment | null = null;
       if (data.drinkAlert) {
@@ -113,18 +117,7 @@ export function useGameEngine() {
     });
 
     socket.on('game_over', (data: any) => {
-      const players: Player[] = (data.players || []).map((p: any) => ({
-        id: p.playerId,
-        name: p.name,
-        team: p.team as Team,
-        mode: p.mode,
-        sips: p.sips,
-        shots: p.shots,
-        shotguns: p.shotguns,
-        lastDrinkTime: p.lastDrinkTime,
-        lastShotTime: p.lastShotTime,
-        lastShotgunTime: p.lastShotgunTime,
-      }));
+      const players: Player[] = (data.players || []).map(mapPlayer);
 
       setGameState(prev => ({
         ...prev,
@@ -147,14 +140,7 @@ export function useGameEngine() {
     });
 
     socket.on('game_reset', (data: any) => {
-      const players: Player[] = (data.session?.players || []).map((p: any) => ({
-        id: p.playerId,
-        name: p.name,
-        team: p.team as Team,
-        mode: p.mode,
-        sips: 0, shots: 0, shotguns: 0,
-        lastDrinkTime: 0, lastShotTime: 0, lastShotgunTime: 0,
-      }));
+      const players: Player[] = (data.session?.players || []).map(mapPlayer);
 
       setGameState(prev => ({
         ...prev,
@@ -170,26 +156,12 @@ export function useGameEngine() {
     });
 
     socket.on('player_joined', (data: any) => {
-      const players: Player[] = (data.session?.players || []).map((p: any) => ({
-        id: p.playerId,
-        name: p.name,
-        team: p.team as Team,
-        mode: p.mode,
-        sips: p.sips, shots: p.shots, shotguns: p.shotguns,
-        lastDrinkTime: p.lastDrinkTime, lastShotTime: p.lastShotTime, lastShotgunTime: p.lastShotgunTime,
-      }));
+      const players: Player[] = (data.session?.players || []).map(mapPlayer);
       setGameState(prev => ({ ...prev, players }));
     });
 
     socket.on('player_left', (data: any) => {
-      const players: Player[] = (data.session?.players || []).map((p: any) => ({
-        id: p.playerId,
-        name: p.name,
-        team: p.team as Team,
-        mode: p.mode,
-        sips: p.sips, shots: p.shots, shotguns: p.shotguns,
-        lastDrinkTime: p.lastDrinkTime, lastShotTime: p.lastShotTime, lastShotgunTime: p.lastShotgunTime,
-      }));
+      const players: Player[] = (data.session?.players || []).map(mapPlayer);
       setGameState(prev => ({ ...prev, players }));
     });
 
@@ -218,18 +190,17 @@ export function useGameEngine() {
   const currentFrameData = gameState.frames[gameState.currentFrame] || gameState.frames[0];
 
   // Add a player via API
-  const addPlayer = useCallback(async (name: string, team: Team, mode: 'casual' | 'savage' | 'dd') => {
+  const addPlayer = useCallback(async (
+    name: string,
+    team: Team,
+    mode: 'casual' | 'savage' | 'dd',
+    beerBrand: string = 'Bud Light',
+    focusedOn: string = 'None'
+  ) => {
     if (!sessionId) return;
     try {
-      const session = await api.addPlayer(sessionId, name, team, mode);
-      const players: Player[] = session.players.map((p: any) => ({
-        id: p.playerId,
-        name: p.name,
-        team: p.team as Team,
-        mode: p.mode,
-        sips: p.sips, shots: p.shots, shotguns: p.shotguns,
-        lastDrinkTime: p.lastDrinkTime, lastShotTime: p.lastShotTime, lastShotgunTime: p.lastShotgunTime,
-      }));
+      const session = await api.addPlayer(sessionId, name, team, mode, beerBrand, focusedOn);
+      const players: Player[] = session.players.map(mapPlayer);
       setGameState(prev => ({ ...prev, players }));
     } catch (error) {
       console.error('Failed to add player:', error);
@@ -241,14 +212,7 @@ export function useGameEngine() {
     if (!sessionId) return;
     try {
       const session = await api.removePlayer(sessionId, playerId);
-      const players: Player[] = session.players.map((p: any) => ({
-        id: p.playerId,
-        name: p.name,
-        team: p.team as Team,
-        mode: p.mode,
-        sips: p.sips, shots: p.shots, shotguns: p.shotguns,
-        lastDrinkTime: p.lastDrinkTime, lastShotTime: p.lastShotTime, lastShotgunTime: p.lastShotgunTime,
-      }));
+      const players: Player[] = session.players.map(mapPlayer);
       setGameState(prev => ({ ...prev, players }));
     } catch (error) {
       console.error('Failed to remove player:', error);
@@ -293,14 +257,7 @@ export function useGameEngine() {
     if (!sessionId) return;
     try {
       const session = await api.resetSession(sessionId);
-      const players: Player[] = session.players.map((p: any) => ({
-        id: p.playerId,
-        name: p.name,
-        team: p.team as Team,
-        mode: p.mode,
-        sips: 0, shots: 0, shotguns: 0,
-        lastDrinkTime: 0, lastShotTime: 0, lastShotgunTime: 0,
-      }));
+      const players: Player[] = session.players.map(mapPlayer);
       setGameState(prev => ({
         ...prev,
         isPlaying: false,

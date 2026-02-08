@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { BarChart3, Users, Beer, Target, Zap, ArrowLeft, TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,13 +18,17 @@ import {
     Legend
 } from 'recharts';
 
-// Mock Data
-const BRAND_SHARE_DATA = [
-    { name: 'Bud Light', value: 35, color: '#004A99' },
-    { name: 'Coors Light', value: 25, color: '#FFB81C' },
-    { name: 'Miller Lite', value: 20, color: '#003087' },
-    { name: 'Others', value: 20, color: '#64748b' },
-];
+interface DashboardData {
+    totalParticipants: number;
+    totalDrinks: number;
+    totalSips: number;
+    totalShots: number;
+    totalShotguns: number;
+    roiEstimate: number;
+    brandShareData: Array<{ name: string; value: number; color: string }>;
+    recentActivity: Array<{ time: string; event: string; impact: string }>;
+    activeSessions: number;
+}
 
 const AD_PERFORMANCE_DATA = [
     { name: 'Kickoff', baseline: 40, ad_sync: 65 },
@@ -32,14 +37,34 @@ const AD_PERFORMANCE_DATA = [
     { name: 'Q3 Break', baseline: 38, ad_sync: 60 },
 ];
 
-const RECENT_ACTIVITY = [
-    { time: '10:42 PM', event: 'Halftime Ad Triggered', impact: '+15% Engagement' },
-    { time: '10:38 PM', event: 'New User Spike', impact: '+240 Users' },
-    { time: '10:30 PM', event: 'Bud Light Mention', impact: '850 Sips Recorded' },
+const FALLBACK_BRAND_DATA = [
+    { name: 'No Data', value: 1, color: '#64748b' },
 ];
 
 export default function BusinessDashboard() {
     const navigate = useNavigate();
+    const [data, setData] = useState<DashboardData | null>(null);
+
+    useEffect(() => {
+        const fetchDashboard = async () => {
+            try {
+                const res = await fetch('/api/analytics/dashboard');
+                if (res.ok) {
+                    const json = await res.json();
+                    setData(json);
+                }
+            } catch (error) {
+                console.error('Failed to fetch dashboard:', error);
+            }
+        };
+
+        fetchDashboard();
+        const interval = setInterval(fetchDashboard, 5000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const brandShareData = data?.brandShareData?.length ? data.brandShareData : FALLBACK_BRAND_DATA;
+    const recentActivity = data?.recentActivity || [];
 
     return (
         <div className="min-h-screen bg-background text-foreground flex flex-col">
@@ -79,15 +104,15 @@ export default function BusinessDashboard() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <MetricCard
                         title="Live Participants"
-                        value="12,450"
-                        subtext="Active in last 5 mins"
+                        value={data ? data.totalParticipants.toLocaleString() : '—'}
+                        subtext={`${data?.activeSessions || 0} active sessions`}
                         icon={Users}
                         trend={{ value: 12, isPositive: true }}
                     />
                     <MetricCard
-                        title="Sips Generated"
-                        value="45,200"
-                        subtext="Since kickoff"
+                        title="Total Drinks"
+                        value={data ? data.totalDrinks.toLocaleString() : '—'}
+                        subtext={`${data?.totalSips || 0} sips · ${data?.totalShots || 0} shots · ${data?.totalShotguns || 0} shotguns`}
                         icon={Beer}
                         trend={{ value: 8, isPositive: true }}
                     />
@@ -100,7 +125,7 @@ export default function BusinessDashboard() {
                     />
                     <MetricCard
                         title="ROI Estimate"
-                        value="$42.5k"
+                        value={data ? `$${(data.roiEstimate / 1000).toFixed(1)}k` : '—'}
                         subtext="Brand value generated"
                         icon={Target}
                         trend={{ value: 5, isPositive: true }}
@@ -123,7 +148,7 @@ export default function BusinessDashboard() {
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
-                                        data={BRAND_SHARE_DATA}
+                                        data={brandShareData}
                                         cx="50%"
                                         cy="50%"
                                         innerRadius={60}
@@ -131,7 +156,7 @@ export default function BusinessDashboard() {
                                         paddingAngle={5}
                                         dataKey="value"
                                     >
-                                        {BRAND_SHARE_DATA.map((entry, index) => (
+                                        {brandShareData.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={entry.color} />
                                         ))}
                                     </Pie>
@@ -180,15 +205,19 @@ export default function BusinessDashboard() {
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
-                            {RECENT_ACTIVITY.map((activity, i) => (
-                                <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-background/50 border border-border">
-                                    <div className="flex items-center gap-4">
-                                        <span className="text-sm font-mono text-muted-foreground">{activity.time}</span>
-                                        <span className="font-medium">{activity.event}</span>
+                            {recentActivity.length === 0 ? (
+                                <p className="text-sm text-muted-foreground text-center py-4">No activity yet. Start a game to see live data.</p>
+                            ) : (
+                                recentActivity.map((activity, i) => (
+                                    <div key={i} className="flex items-center justify-between p-3 rounded-lg bg-background/50 border border-border">
+                                        <div className="flex items-center gap-4">
+                                            <span className="text-sm font-mono text-muted-foreground">{activity.time}</span>
+                                            <span className="font-medium">{activity.event}</span>
+                                        </div>
+                                        <span className="text-sm font-bold text-green-500">{activity.impact}</span>
                                     </div>
-                                    <span className="text-sm font-bold text-green-500">{activity.impact}</span>
-                                </div>
-                            ))}
+                                ))
+                            )}
                         </div>
                     </CardContent>
                 </Card>

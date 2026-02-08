@@ -41,7 +41,7 @@ export function createSessionRouter(io: SocketServer) {
       if (!session) return res.status(404).json({ error: 'Session not found' });
       if (session.status === 'playing') return res.status(400).json({ error: 'Cannot add players while game is playing' });
 
-      const { name, team, mode } = req.body;
+      const { name, team, mode, beerBrand, focusedOn } = req.body;
       if (!name || !team || !mode) return res.status(400).json({ error: 'name, team, and mode are required' });
 
       const playerId = Math.random().toString(36).substring(2, 9);
@@ -50,6 +50,8 @@ export function createSessionRouter(io: SocketServer) {
         name,
         team,
         mode,
+        beerBrand: beerBrand || 'Bud Light',
+        focusedOn: focusedOn || 'None',
         sips: 0,
         shots: 0,
         shotguns: 0,

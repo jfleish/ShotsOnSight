@@ -22,10 +22,10 @@ export const createSession = (gameId: string) =>
 
 export const getSession = (id: string) => request<any>(`/sessions/${id}`);
 
-export const addPlayer = (sessionId: string, name: string, team: string, mode: string) =>
+export const addPlayer = (sessionId: string, name: string, team: string, mode: string, beerBrand: string = 'Bud Light', focusedOn: string = 'None') =>
   request<any>(`/sessions/${sessionId}/players`, {
     method: 'POST',
-    body: JSON.stringify({ name, team, mode }),
+    body: JSON.stringify({ name, team, mode, beerBrand, focusedOn }),
   });
 
 export const removePlayer = (sessionId: string, playerId: string) =>

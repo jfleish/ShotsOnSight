@@ -5,6 +5,8 @@ export interface IPlayerState {
   name: string;
   team: 'home' | 'away';
   mode: 'casual' | 'savage' | 'dd';
+  beerBrand: string;
+  focusedOn: string;
   sips: number;
   shots: number;
   shotguns: number;
@@ -29,6 +31,8 @@ const PlayerStateSchema = new Schema<IPlayerState>({
   name: { type: String, required: true },
   team: { type: String, enum: ['home', 'away'], required: true },
   mode: { type: String, enum: ['casual', 'savage', 'dd'], required: true },
+  beerBrand: { type: String, default: 'Bud Light' },
+  focusedOn: { type: String, default: 'None' },
   sips: { type: Number, default: 0 },
   shots: { type: Number, default: 0 },
   shotguns: { type: Number, default: 0 },

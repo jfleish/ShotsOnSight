@@ -104,4 +104,88 @@ router.get('/summary', async (_req: Request, res: Response) => {
   }
 });
 
+// GET /api/analytics/dashboard - Live dashboard data for B2B portal
+router.get('/dashboard', async (_req: Request, res: Response) => {
+  try {
+    // Get all active/recent sessions
+    const sessions = await GameSession.find({
+      status: { $in: ['playing', 'paused', 'waiting'] },
+    });
+    const allSessions = await GameSession.find();
+
+    // Count total participants across all sessions
+    let totalParticipants = 0;
+    const brandCounts: Record<string, number> = {};
+    const allPlayers: Array<{ name: string; team: string; beerBrand: string; sips: number; shots: number; shotguns: number }> = [];
+
+    for (const session of allSessions) {
+      totalParticipants += session.players.length;
+      for (const p of session.players) {
+        const brand = (p as any).beerBrand || 'Bud Light';
+        brandCounts[brand] = (brandCounts[brand] || 0) + 1;
+        allPlayers.push({
+          name: p.name,
+          team: p.team,
+          beerBrand: brand,
+          sips: p.sips,
+          shots: p.shots,
+          shotguns: p.shotguns,
+        });
+      }
+    }
+
+    // Total drinks across all sessions
+    const totalDrinkEvents = await DrinkEvent.countDocuments();
+    const totalSips = allPlayers.reduce((sum, p) => sum + p.sips, 0);
+    const totalShots = allPlayers.reduce((sum, p) => sum + p.shots, 0);
+    const totalShotguns = allPlayers.reduce((sum, p) => sum + p.shotguns, 0);
+    const totalDrinks = totalSips + totalShots + totalShotguns;
+
+    // Brand share as percentages
+    const brandColors: Record<string, string> = {
+      'Bud Light': '#004A99',
+      'Coors Light': '#FFB81C',
+      'Miller Lite': '#003087',
+      'Corona': '#FFC72C',
+      'Modelo': '#C8102E',
+    };
+    const brandShareData = Object.entries(brandCounts).map(([name, value]) => ({
+      name,
+      value,
+      color: brandColors[name] || '#64748b',
+    }));
+    if (brandShareData.length === 0) {
+      brandShareData.push({ name: 'No Data', value: 1, color: '#64748b' });
+    }
+
+    // Recent drink events for live feed
+    const recentEvents = await DrinkEvent.find()
+      .sort({ createdAt: -1 })
+      .limit(10);
+    const recentActivity = recentEvents.map(e => ({
+      time: new Date(e.timestamp * 1000).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
+      event: `${e.playerName}: ${e.drinkType?.toUpperCase()} - ${e.reason}`,
+      impact: e.drinkType === 'shotgun' ? '+3 Units' : e.drinkType === 'shot' ? '+2 Units' : '+1 Unit',
+    }));
+
+    // ROI estimate ($0.50 per sip, $1.50 per shot, $3.00 per shotgun engagement value)
+    const roiEstimate = totalSips * 0.5 + totalShots * 1.5 + totalShotguns * 3.0;
+
+    res.json({
+      totalParticipants,
+      totalDrinks,
+      totalSips,
+      totalShots,
+      totalShotguns,
+      totalDrinkEvents,
+      roiEstimate,
+      brandShareData,
+      recentActivity,
+      activeSessions: sessions.length,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch dashboard data' });
+  }
+});
+
 export default router;
