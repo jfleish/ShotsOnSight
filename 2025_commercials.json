@@ -1,0 +1,365 @@
+{
+  "super_bowl": "Super Bowl LIX (59)",
+  "year": 2025,
+  "commercials": [
+    {
+      "brand": "FanDuel",
+      "title": "The Kick of Destiny 3 – Recap of Eli vs Peyton Manning",
+      "celebrities": ["Eli Manning", "Peyton Manning"],
+      "description": "Third installment of FanDuel's Kick of Destiny series featuring the Manning brothers competing in a kicking challenge."
+    },
+    {
+      "brand": "FanDuel",
+      "title": "The Kick of Destiny 3 – Eli's Victory Parade",
+      "celebrities": ["Eli Manning"],
+      "description": "Follow-up to the Kick of Destiny competition celebrating Eli Manning's victory."
+    },
+    {
+      "brand": "Carl's Jr.",
+      "title": "Free Hangover Burger 2.10.25",
+      "description": "Carl's Jr. promotes a free hangover burger the day after the Super Bowl."
+    },
+    {
+      "brand": "GoDaddy",
+      "title": "Social Slickness",
+      "description": "GoDaddy showcases their social media and website building tools."
+    },
+    {
+      "brand": "GoDaddy",
+      "title": "Act Like You Know",
+      "description": "GoDaddy's second Super Bowl ad promoting their business services."
+    },
+    {
+      "brand": "Yahoo",
+      "title": "Email Bill Murray",
+      "celebrity": "Bill Murray",
+      "description": "Bill Murray stars in Yahoo's ad promoting their email service."
+    },
+    {
+      "brand": "Fetch",
+      "title": "The Big Reward",
+      "description": "Fetch rewards app highlights the benefits of their loyalty program."
+    },
+    {
+      "brand": "Disney",
+      "title": "Lilo & Stitch - Stitch Runs Loose",
+      "description": "Movie trailer for Disney's live-action Lilo & Stitch featuring Stitch causing chaos."
+    },
+    {
+      "brand": "Coffee mate",
+      "title": "Tongue meet Cold Foam",
+      "description": "Coffee mate introduces their cold foam product with a sensory-focused ad."
+    },
+    {
+      "brand": "MSC Cruises",
+      "title": "Lets Holiday",
+      "description": "MSC Cruises promotes vacation experiences on their cruise ships."
+    },
+    {
+      "brand": "Duracell",
+      "title": "Brady Reboost",
+      "celebrity": "Tom Brady",
+      "description": "Tom Brady stars in Duracell's ad about battery power and longevity."
+    },
+    {
+      "brand": "Universal Pictures",
+      "title": "How To Train Your Dragon",
+      "description": "Movie trailer for Universal's live-action How To Train Your Dragon adaptation."
+    },
+    {
+      "brand": "Jeep",
+      "title": "Owner's Manual",
+      "celebrity": "Harrison Ford",
+      "description": "Harrison Ford demonstrates that a Jeep doesn't need an owner's manual - just adventure."
+    },
+    {
+      "brand": "Angel Soft",
+      "title": "Potty-tunity",
+      "description": "Angel Soft toilet paper celebrates bathroom opportunities with a humorous take."
+    },
+    {
+      "brand": "Tubi",
+      "title": "He was Born to Love Westerns",
+      "description": "Tubi streaming service highlights their extensive Western movie collection."
+    },
+    {
+      "brand": "Poppi",
+      "title": "Soda Thoughts",
+      "description": "Poppi prebiotic soda shares thoughts on healthier soda alternatives."
+    },
+    {
+      "brand": "Taco Bell",
+      "title": "The Fans",
+      "celebrities": ["Doja Cat", "LeBron James"],
+      "description": "Doja Cat and LeBron James celebrate Taco Bell fans in this energetic ad."
+    },
+    {
+      "brand": "Homes.com",
+      "title": "Still Not Saying We're the Best",
+      "description": "Homes.com continues their humble bragging approach to real estate."
+    },
+    {
+      "brand": "Homes.com",
+      "title": "Not Saying We're the Best",
+      "description": "First version of Homes.com's self-deprecating real estate ad campaign."
+    },
+    {
+      "brand": "Nike",
+      "title": "So Win",
+      "description": "Nike's inspirational ad about winning and athletic achievement."
+    },
+    {
+      "brand": "Salesforce",
+      "title": "Gate Expectations",
+      "celebrity": "Matthew McConaughey",
+      "description": "Matthew McConaughey stars in Salesforce's ad about AI and customer expectations."
+    },
+    {
+      "brand": "Liquid Death",
+      "title": "Safe For Work",
+      "description": "Liquid Death water's edgy brand promotes their product as office-appropriate."
+    },
+    {
+      "brand": "Google Pixel",
+      "title": "Dream Job",
+      "description": "Google Pixel showcases phone features that help achieve career dreams."
+    },
+    {
+      "brand": "OpenAI",
+      "title": "ChatGPT – The Intelligence Age",
+      "description": "OpenAI's first Super Bowl ad introducing ChatGPT and AI capabilities to mainstream audience."
+    },
+    {
+      "brand": "T-Mobile Starlink",
+      "title": "A New Era in Connectivity",
+      "description": "T-Mobile partners with Starlink for satellite connectivity announcement."
+    },
+    {
+      "brand": "Marvel Studios",
+      "title": "Thunderbolts",
+      "description": "Marvel Studios trailer for the upcoming Thunderbolts superhero film."
+    },
+    {
+      "brand": "Dunkin'",
+      "title": "DunKings 2",
+      "celebrities": ["Ben Affleck", "Casey Affleck", "Jeremy Strong", "Bill Belichick", "Druski"],
+      "description": "Sequel to DunKings featuring the Affleck brothers, Jeremy Strong, Bill Belichick, and comedian Druski."
+    },
+    {
+      "brand": "Meta Ray-Ban",
+      "title": "Art Prank Gone Wrong",
+      "description": "Meta Ray-Ban smart glasses ad showing an art prank that backfires."
+    },
+    {
+      "brand": "Meta Ray-Ban",
+      "title": "Hey Meta, Who Eats Art?",
+      "description": "Meta Ray-Ban demonstrates AI assistant capabilities for answering questions."
+    },
+    {
+      "brand": "He Gets Us",
+      "title": "What is Greatness",
+      "description": "Religious campaign exploring the concept of greatness through Jesus' teachings."
+    },
+    {
+      "brand": "Doritos",
+      "title": "Abduction",
+      "description": "Doritos ad featuring an alien abduction scenario centered around the chips."
+    },
+    {
+      "brand": "TurboTax",
+      "title": "Now Taxes is So Sweet",
+      "celebrity": "Issa Rae",
+      "description": "Issa Rae makes tax filing seem sweet and easy with TurboTax."
+    },
+    {
+      "brand": "Michelob ULTRA",
+      "title": "The ULTRA Hustle",
+      "description": "Michelob ULTRA celebrates the hustle of active lifestyles."
+    },
+    {
+      "brand": "Pfizer",
+      "title": "Knock Out",
+      "description": "Pfizer pharmaceutical ad using boxing metaphor for health treatments."
+    },
+    {
+      "brand": "Ritz",
+      "title": "RITZ Salty Club",
+      "description": "Ritz crackers creates an exclusive 'salty club' concept around their product."
+    },
+    {
+      "brand": "Bosch",
+      "title": "The More You Bosch",
+      "description": "Bosch appliances ad with wordplay on their brand name."
+    },
+    {
+      "brand": "Paramount Pictures",
+      "title": "Novocaine",
+      "celebrities": ["Jack Quaid", "Amber Midthunder", "Ray Nicholson", "Jacob Batalon"],
+      "description": "Paramount movie trailer for thriller Novocaine featuring ensemble cast."
+    },
+    {
+      "brand": "DoorDash",
+      "title": "DashPass Math",
+      "description": "DoorDash breaks down the savings math of their DashPass subscription."
+    },
+    {
+      "brand": "Cirkul",
+      "title": "You Got Cirkul",
+      "description": "Cirkul water bottle system promotes their customizable flavor technology."
+    },
+    {
+      "brand": "Ram Trucks",
+      "title": "Goldilocks and the Three Trucks",
+      "celebrity": "Glen Powell",
+      "description": "Glen Powell stars in Ram's fairy tale twist finding the truck that's 'just right'."
+    },
+    {
+      "brand": "NerdWallet",
+      "title": "Genius Beluga",
+      "description": "NerdWallet uses a genius beluga whale to promote financial wisdom."
+    },
+    {
+      "brand": "MTN DEW",
+      "title": "Official Song of Mountain Dew Baja Blast Kiss From A Lime",
+      "celebrities": ["SEAL", "Becky G", "The Mountain Dude"],
+      "description": "Musical ad featuring SEAL, Becky G parody of 'Kiss From A Rose' for Baja Blast."
+    },
+    {
+      "brand": "Totino's Pizza Rolls",
+      "title": "Chazmo Finally Goes Home",
+      "description": "Totino's concludes the Chazmo character's journey home."
+    },
+    {
+      "brand": "Skechers",
+      "title": "Skechers with Andy Reid",
+      "celebrity": "Andy Reid",
+      "description": "NFL coach Andy Reid promotes Skechers comfortable footwear."
+    },
+    {
+      "brand": "Uber Eats",
+      "title": "A Century of Cravings",
+      "description": "Uber Eats celebrates 100 years of food cravings and delivery."
+    },
+    {
+      "brand": "Lay's",
+      "title": "The Little Farmer",
+      "description": "Lay's honors the small farmers who grow their potatoes."
+    },
+    {
+      "brand": "Stella Artois",
+      "title": "David & Dave: The Other David",
+      "description": "Stella Artois features two Davids in a sophisticated beer ad."
+    },
+    {
+      "brand": "Squarespace",
+      "title": "A Tale As Old As Websites",
+      "description": "Squarespace tells a timeless story about website building."
+    },
+    {
+      "brand": "NERDS",
+      "title": "NERDS ft. Shaboozey",
+      "celebrity": "Shaboozey",
+      "description": "Musician Shaboozey stars in NERDS candy's Super Bowl debut."
+    },
+    {
+      "brand": "What's Up With Hate",
+      "title": "No Reason to Hate",
+      "description": "Public service announcement campaign against hate."
+    },
+    {
+      "brand": "Little Caesars Pizza",
+      "title": "Woah",
+      "celebrity": "Eugene Levy",
+      "description": "Eugene Levy reacts with his signature 'woah' to Little Caesars' value."
+    },
+    {
+      "brand": "HÄAGEN-DAZS",
+      "title": "NOT SO FAST, NOT SO FURIOUS",
+      "description": "Häagen-Dazs parodies Fast & Furious with a slow, luxurious ice cream experience."
+    },
+    {
+      "brand": "Pringles",
+      "title": "The Call of The Mustaches",
+      "description": "Pringles' Mr. P mascot calls mustache-lovers everywhere."
+    },
+    {
+      "brand": "Coors Light",
+      "title": "Slow Monday",
+      "description": "Coors Light embraces the slow pace of Monday after the Super Bowl."
+    },
+    {
+      "brand": "Booking.com",
+      "title": "Get your stay ridiculously right",
+      "description": "Booking.com promises to make travel accommodations perfect."
+    },
+    {
+      "brand": "Reese's",
+      "title": "Don't Eat Lava",
+      "description": "Reese's warns against eating lava but endorses eating their peanut butter cups."
+    },
+    {
+      "brand": "Bud Light",
+      "title": "Big Men on Cul-De-Sac",
+      "description": "Bud Light features tough guys relaxing in suburban neighborhoods."
+    },
+    {
+      "brand": "HexClad",
+      "title": "Unidentified Frying Object",
+      "description": "HexClad cookware presents their pans as mysterious UFO-like objects."
+    },
+    {
+      "brand": "Instacart",
+      "title": "We're Here",
+      "description": "Instacart reassures customers of their reliable delivery presence."
+    },
+    {
+      "brand": "WeatherTech",
+      "title": "Whatever Comes Your Way",
+      "description": "WeatherTech automotive accessories protect against any weather condition."
+    },
+    {
+      "brand": "Hellmann's",
+      "title": "When Sally Met Hellmann's",
+      "description": "Hellmann's mayonnaise parodies 'When Harry Met Sally' for their campaign."
+    },
+    {
+      "brand": "Hims",
+      "title": "Sick of the System",
+      "description": "Hims health service challenges the traditional healthcare system."
+    },
+    {
+      "brand": "Novartis",
+      "title": "Your Attention",
+      "description": "Novartis pharmaceutical ad requesting attention for health awareness."
+    },
+    {
+      "brand": "NFL",
+      "title": "It Takes All of Us – Somebody",
+      "description": "NFL's inclusive message about the community behind football."
+    },
+    {
+      "brand": "Rocket",
+      "title": "Take Me Home",
+      "description": "Rocket Mortgage's emotional ad about finding home."
+    },
+    {
+      "brand": "Budweiser",
+      "title": "First Delivery",
+      "description": "Budweiser tells the historic story of their first beer delivery with the iconic Clydesdales."
+    }
+  ],
+  "total_ads": 68,
+  "top_10": [
+    "Häagen-Dazs – Not So Fast, Not So Furious",
+    "Budweiser – First Delivery", 
+    "Doritos – Abduction",
+    "Ritz – RITZ Salty Club",
+    "Reese's – Don't Eat Lava",
+    "Jeep – Owner's Manual (with Harrison Ford)",
+    "Google Pixel – Dream Job",
+    "OpenAI – ChatGPT: The Intelligence Age",
+    "Lay's – The Little Farmer",
+    "Nike – So Win"
+  ],
+  "notes": "Super Bowl LIX featured 68 commercials with themes of innovation, humor, and human connection. Notable trends included AI technology (OpenAI, Google, Salesforce), celebrity-driven campaigns, and emotional storytelling. Descriptions compiled from available taglines and titles from superbowl-ads.com."
+}
