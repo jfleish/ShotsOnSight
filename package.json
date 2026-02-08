@@ -10,7 +10,11 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "start": "concurrently \"npm run dev\" \"cd server && npm run dev\"",
+    "restart": "npx kill-port 5173 3001 2>/dev/null || true; npm start",
+    "server": "cd server && npm run dev",
+    "server:restart": "npx kill-port 3001 2>/dev/null || true; cd server && npm run dev"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -74,6 +78,7 @@
     "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react-swc": "^3.11.0",
     "autoprefixer": "^10.4.21",
+    "concurrently": "^8.2.2",
     "eslint": "^9.32.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
