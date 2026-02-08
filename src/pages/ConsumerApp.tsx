@@ -1,0 +1,148 @@
+import { useGameEngine } from '@/hooks/useGameEngine';
+import { HeaderBar } from '@/components/game/HeaderBar';
+import { WinProbCard } from '@/components/game/WinProbCard';
+import { AlertOverlay } from '@/components/game/AlertOverlay';
+import { ControlPanel } from '@/components/game/ControlPanel';
+import { PlayFeed } from '@/components/game/PlayFeed';
+import { TEAMS, TOTAL_DURATION } from '@/data/demoGame';
+import { AlertTriangle } from 'lucide-react';
+import { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+const ConsumerApp = () => {
+  const {
+    gameState,
+    currentFrameData,
+    winProbDelta,
+    isLoading,
+    addPlayer,
+    removePlayer,
+    startGame,
+    pauseGame,
+    resumeGame,
+    resetGame,
+    skipFrame,
+  } = useGameEngine();
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { brand, team, focusPlayers } = location.state || {};
+
+  useEffect(() => {
+    // If no state (direct access), redirect to lobby
+    if (!brand || !team) {
+      if (gameState.players.length === 0) {
+        navigate('/lobby');
+      }
+      return;
+    }
+
+    // Initialize player if not exists
+    if (gameState.players.length === 0) {
+      const focusStr = Array.isArray(focusPlayers) ? focusPlayers.join(', ') : (focusPlayers || 'None');
+      addPlayer('You', team, 'casual', brand, focusStr);
+    }
+  }, [brand, team, focusPlayers, addPlayer, gameState.players.length, navigate]);
+
+  const isGameOver = gameState.currentFrame >= gameState.frames.length - 1 && !gameState.isPlaying;
+
+  const clearAlert = () => {
+    // Alert auto-clears, but allow manual dismiss
+  };
+
+  // Show loading state while fetching data
+  if (isLoading || !currentFrameData) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <h2 className="text-xl font-display text-foreground">Loading Super Bowl 2025 Data...</h2>
+          <p className="text-muted-foreground mt-2">Fetching real-time play data</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background">
+      {/* Alert Overlay */}
+      <AlertOverlay
+        alert={gameState.currentAlert}
+        onDismiss={clearAlert}
+      />
+
+      {/* Header */}
+      <HeaderBar
+        elapsedTime={gameState.elapsedTime}
+        totalDuration={TOTAL_DURATION}
+        isPlaying={gameState.isPlaying}
+      />
+
+      {/* Main Content */}
+      <main className="container py-6">
+        <div className="grid grid-cols-1 gap-6 max-w-4xl mx-auto">
+          {/* Main Game Info - Full Width */}
+          <div className="space-y-6">
+            {/* Win Probability */}
+            <WinProbCard
+              winProb={currentFrameData.win_prob}
+              delta={winProbDelta}
+              homeScore={currentFrameData.home}
+              awayScore={currentFrameData.away}
+              quarter={currentFrameData.quarter}
+              clock={currentFrameData.clock}
+              homeName={TEAMS.home.name}
+              awayName={TEAMS.away.name}
+            />
+
+            {/* Play Feed */}
+            <PlayFeed
+              currentFrame={currentFrameData}
+              description={currentFrameData.description}
+            />
+
+            {/* Controls */}
+            <ControlPanel
+              isPlaying={gameState.isPlaying}
+              isPaused={gameState.isPaused}
+              canStart={true} // Always allow start since config is done in lobby
+              onStart={startGame}
+              onPause={pauseGame}
+              onResume={resumeGame}
+              onReset={resetGame}
+              onSkip={skipFrame}
+            />
+
+            {/* Game Over Summary */}
+            {isGameOver && (
+              <div className="rounded-xl border-2 border-primary bg-primary/10 p-6 text-center glow-primary">
+                <h2 className="text-3xl font-display text-primary mb-2">
+                  GAME OVER!
+                </h2>
+                <p className="text-xl font-bold text-foreground mb-1">
+                  {TEAMS.home.name} {currentFrameData.home} - {currentFrameData.away} {TEAMS.away.name}
+                </p>
+                <p className="text-muted-foreground">
+                  {currentFrameData.home > currentFrameData.away
+                    ? `${TEAMS.home.city} ${TEAMS.home.name} win!`
+                    : `${TEAMS.away.city} ${TEAMS.away.name} win!`
+                  }
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Footer Disclaimer */}
+        <footer className="mt-12 py-6 border-t border-border">
+          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <AlertTriangle className="w-4 h-4" />
+            <span>Drink responsibly. Non-alcoholic options supported. 21+ only.</span>
+          </div>
+        </footer>
+      </main>
+    </div>
+  );
+};
+
+export default ConsumerApp;

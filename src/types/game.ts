@@ -44,6 +44,8 @@ export interface Player {
   name: string;
   team: Team;
   mode: DrinkMode;
+  beerBrand: string;
+  focusedOn: string;
   sips: number;
   shots: number;
   shotguns: number;

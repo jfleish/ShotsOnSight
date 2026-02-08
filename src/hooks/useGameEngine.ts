@@ -1,218 +1,209 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { GameState, Player, DrinkAssignment, DrinkType, Team, DEFAULT_DRINK_RULES, EVENT_DRINKS, MODE_MULTIPLIERS } from '@/types/game';
-import { getGameData, FRAME_INTERVAL } from '@/data/demoGame';
+import { GameState, GameFrame, Player, DrinkAssignment, Team } from '@/types/game';
+import * as api from '@/lib/api';
+import { getSocket, joinSession, leaveSession } from '@/lib/socket';
 
 const generateId = () => Math.random().toString(36).substring(2, 9);
 
 export function useGameEngine() {
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [gameId, setGameId] = useState<string | null>(null);
   const [gameState, setGameState] = useState<GameState>({
     isPlaying: false,
     isPaused: false,
     currentFrame: 0,
     elapsedTime: 0,
-    frames: [], // Will be loaded asynchronously
+    frames: [],
     players: [],
     alerts: [],
     currentAlert: null,
   });
   const [isLoading, setIsLoading] = useState(true);
+  const [winProbDelta, setWinProbDelta] = useState(0);
+  const socketSetup = useRef(false);
 
-  // Load game data on mount
+  // Initialize: fetch game from API, create session, connect socket
   useEffect(() => {
-    const loadData = async () => {
+    const init = async () => {
       try {
-        const frames = await getGameData();
-        setGameState(prev => ({ ...prev, frames }));
+        // 1. Get available games
+        const games = await api.getGames();
+        if (games.length === 0) {
+          console.error('No games available in database');
+          setIsLoading(false);
+          return;
+        }
+
+        const game = games[0];
+        setGameId(game._id);
+
+        // 2. Fetch full game with frames
+        const fullGame = await api.getGame(game._id);
+
+        // 3. Create a session for this game
+        const session = await api.createSession(game._id);
+        setSessionId(session._id);
+
+        // 4. Set initial state with frames from DB
+        setGameState(prev => ({
+          ...prev,
+          frames: fullGame.frames,
+        }));
+
+        // 5. Join socket room
+        joinSession(session._id);
       } catch (error) {
-        console.error('Failed to load game data:', error);
+        console.error('Failed to initialize from backend:', error);
       } finally {
         setIsLoading(false);
       }
     };
-    
-    loadData();
-  }, []);
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
-  const lastDrinkTimeRef = useRef<Record<string, number>>({});
+    init();
 
-  const currentFrameData = gameState.frames[gameState.currentFrame] || gameState.frames[0];
-  const prevFrameData = gameState.currentFrame > 0 ? gameState.frames[gameState.currentFrame - 1] : null;
-
-  // Calculate win probability delta
-  const winProbDelta = prevFrameData 
-    ? currentFrameData.win_prob - prevFrameData.win_prob 
-    : 0;
-
-  // Add a player
-  const addPlayer = useCallback((name: string, team: Team, mode: 'casual' | 'savage' | 'dd') => {
-    const player: Player = {
-      id: generateId(),
-      name,
-      team,
-      mode,
-      sips: 0,
-      shots: 0,
-      shotguns: 0,
-      lastDrinkTime: 0,
-      lastShotTime: 0,
-      lastShotgunTime: 0,
+    return () => {
+      if (sessionId) leaveSession(sessionId);
     };
-    setGameState(prev => ({
-      ...prev,
-      players: [...prev.players, player],
-    }));
   }, []);
 
-  // Remove a player
-  const removePlayer = useCallback((playerId: string) => {
-    setGameState(prev => ({
-      ...prev,
-      players: prev.players.filter(p => p.id !== playerId),
-    }));
-  }, []);
+  // Socket event listeners
+  useEffect(() => {
+    if (!sessionId || socketSetup.current) return;
+    socketSetup.current = true;
 
-  // Determine drink assignment based on rules
-  const determineDrink = useCallback((delta: number, event: string | null, currentTime: number): { type: DrinkType; reason: string } => {
-    // Check event-based triggers first
-    if (event && EVENT_DRINKS[event as keyof typeof EVENT_DRINKS]) {
-      const eventDrink = EVENT_DRINKS[event as keyof typeof EVENT_DRINKS];
-      if (eventDrink) {
-        return { type: eventDrink, reason: event.replace(/_/g, ' ').toUpperCase() };
-      }
-    }
+    const socket = getSocket();
 
-    // Check probability delta
-    const absDelta = Math.abs(delta);
-    if (absDelta > DEFAULT_DRINK_RULES.probabilityThresholds.shot) {
-      return { type: 'shot', reason: `${delta > 0 ? '+' : ''}${(delta * 100).toFixed(0)}% swing!` };
-    }
-    if (absDelta > DEFAULT_DRINK_RULES.probabilityThresholds.sip) {
-      return { type: 'sip', reason: 'Momentum shift' };
-    }
+    socket.on('frame_update', (data: any) => {
+      setWinProbDelta(data.winProbDelta || 0);
 
-    return { type: null, reason: '' };
-  }, []);
+      // Map server player state to client Player format
+      const players: Player[] = (data.players || []).map((p: any) => ({
+        id: p.playerId,
+        name: p.name,
+        team: p.team as Team,
+        mode: p.mode,
+        sips: p.sips,
+        shots: p.shots,
+        shotguns: p.shotguns,
+        lastDrinkTime: p.lastDrinkTime,
+        lastShotTime: p.lastShotTime,
+        lastShotgunTime: p.lastShotgunTime,
+      }));
 
-  // Select target players for drink
-  const selectTargets = useCallback((players: Player[], losingTeam: Team, drinkType: DrinkType): Player[] => {
-    // DD mode players never drink
-    const eligiblePlayers = players.filter(p => p.mode !== 'dd');
-    if (eligiblePlayers.length === 0) return [];
-
-    // Target fans of the losing team primarily
-    const losers = eligiblePlayers.filter(p => p.team === losingTeam);
-    const winners = eligiblePlayers.filter(p => p.team !== losingTeam);
-
-    // Random selection with bias toward losing team
-    if (losers.length > 0 && Math.random() > 0.3) {
-      return [losers[Math.floor(Math.random() * losers.length)]];
-    }
-    if (winners.length > 0) {
-      return [winners[Math.floor(Math.random() * winners.length)]];
-    }
-    return eligiblePlayers.length > 0 ? [eligiblePlayers[Math.floor(Math.random() * eligiblePlayers.length)]] : [];
-  }, []);
-
-  // Process frame and assign drinks
-  const processFrame = useCallback(() => {
-    setGameState(prev => {
-      if (prev.currentFrame >= prev.frames.length - 1) {
-        // Game ended
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-          intervalRef.current = null;
-        }
-        return { ...prev, isPlaying: false, isPaused: false };
-      }
-
-      const nextFrame = prev.currentFrame + 1;
-      const currentData = prev.frames[nextFrame];
-      const prevData = prev.frames[prev.currentFrame];
-      const delta = currentData.win_prob - prevData.win_prob;
-      const currentTime = currentData.t;
-
-      // Determine drink
-      const { type: drinkType, reason } = determineDrink(delta, currentData.event, currentTime);
-
-      // If there's a drink to assign
       let newAlert: DrinkAssignment | null = null;
-      let updatedPlayers = prev.players;
-
-      if (drinkType && prev.players.length > 0) {
-        // Determine losing team (team with lower win prob gets targeted)
-        const losingTeam: Team = currentData.win_prob > 0.5 ? 'away' : 'home';
-        
-        // Check rate limiting
-        const lastDrink = lastDrinkTimeRef.current;
-        let finalDrinkType = drinkType;
-
-        if (drinkType === 'shot') {
-          const timeSinceLastShot = currentTime - (lastDrink['shot'] || 0);
-          if (timeSinceLastShot < DEFAULT_DRINK_RULES.minShotInterval) {
-            finalDrinkType = 'sip'; // Downgrade
-          }
-        }
-        if (drinkType === 'shotgun') {
-          const timeSinceLastShotgun = currentTime - (lastDrink['shotgun'] || 0);
-          if (timeSinceLastShotgun < DEFAULT_DRINK_RULES.minShotgunInterval) {
-            finalDrinkType = 'shot'; // Downgrade
-          }
-        }
-
-        // Select target
-        const targets = selectTargets(prev.players, losingTeam, finalDrinkType);
-        
-        if (targets.length > 0) {
-          const target = targets[0];
-          
-          // Apply mode multiplier - casual has 50% chance to skip
-          if (target.mode === 'casual' && Math.random() > MODE_MULTIPLIERS.casual * 2) {
-            // Skip drink for casual mode
-          } else {
-            newAlert = {
-              id: generateId(),
-              playerId: target.id,
-              playerName: target.name,
-              type: finalDrinkType,
-              reason,
-              timestamp: currentTime,
-            };
-
-            // Update player drink counts
-            updatedPlayers = prev.players.map(p => {
-              if (p.id === target.id) {
-                return {
-                  ...p,
-                  sips: p.sips + (finalDrinkType === 'sip' ? 1 : 0),
-                  shots: p.shots + (finalDrinkType === 'shot' ? 1 : 0),
-                  shotguns: p.shotguns + (finalDrinkType === 'shotgun' ? 1 : 0),
-                  lastDrinkTime: currentTime,
-                  lastShotTime: finalDrinkType === 'shot' ? currentTime : p.lastShotTime,
-                  lastShotgunTime: finalDrinkType === 'shotgun' ? currentTime : p.lastShotgunTime,
-                };
-              }
-              return p;
-            });
-
-            // Update rate limiting tracker
-            if (finalDrinkType === 'shot' || finalDrinkType === 'shotgun') {
-              lastDrinkTimeRef.current[finalDrinkType] = currentTime;
-            }
-          }
-        }
+      if (data.drinkAlert) {
+        newAlert = {
+          id: generateId(),
+          playerId: data.drinkAlert.playerId,
+          playerName: data.drinkAlert.playerName,
+          type: data.drinkAlert.type,
+          reason: data.drinkAlert.reason,
+          timestamp: data.drinkAlert.timestamp,
+        };
       }
 
-      return {
+      setGameState(prev => ({
         ...prev,
-        currentFrame: nextFrame,
-        elapsedTime: currentData.t,
-        players: updatedPlayers,
+        currentFrame: data.currentFrame,
+        elapsedTime: data.elapsedTime,
+        players,
         alerts: newAlert ? [...prev.alerts, newAlert] : prev.alerts,
         currentAlert: newAlert,
-      };
+      }));
     });
-  }, [determineDrink, selectTargets]);
+
+    socket.on('game_over', (data: any) => {
+      const players: Player[] = (data.players || []).map((p: any) => ({
+        id: p.playerId,
+        name: p.name,
+        team: p.team as Team,
+        mode: p.mode,
+        sips: p.sips,
+        shots: p.shots,
+        shotguns: p.shotguns,
+        lastDrinkTime: p.lastDrinkTime,
+        lastShotTime: p.lastShotTime,
+        lastShotgunTime: p.lastShotgunTime,
+      }));
+
+      setGameState(prev => ({
+        ...prev,
+        isPlaying: false,
+        isPaused: false,
+        players,
+      }));
+    });
+
+    socket.on('game_started', () => {
+      setGameState(prev => ({ ...prev, isPlaying: true, isPaused: false }));
+    });
+
+    socket.on('game_paused', () => {
+      setGameState(prev => ({ ...prev, isPaused: true }));
+    });
+
+    socket.on('game_resumed', () => {
+      setGameState(prev => ({ ...prev, isPaused: false }));
+    });
+
+    socket.on('game_reset', (data: any) => {
+      const players: Player[] = (data.session?.players || []).map((p: any) => ({
+        id: p.playerId,
+        name: p.name,
+        team: p.team as Team,
+        mode: p.mode,
+        sips: 0, shots: 0, shotguns: 0,
+        lastDrinkTime: 0, lastShotTime: 0, lastShotgunTime: 0,
+      }));
+
+      setGameState(prev => ({
+        ...prev,
+        isPlaying: false,
+        isPaused: false,
+        currentFrame: 0,
+        elapsedTime: 0,
+        alerts: [],
+        currentAlert: null,
+        players,
+      }));
+      setWinProbDelta(0);
+    });
+
+    socket.on('player_joined', (data: any) => {
+      const players: Player[] = (data.session?.players || []).map((p: any) => ({
+        id: p.playerId,
+        name: p.name,
+        team: p.team as Team,
+        mode: p.mode,
+        sips: p.sips, shots: p.shots, shotguns: p.shotguns,
+        lastDrinkTime: p.lastDrinkTime, lastShotTime: p.lastShotTime, lastShotgunTime: p.lastShotgunTime,
+      }));
+      setGameState(prev => ({ ...prev, players }));
+    });
+
+    socket.on('player_left', (data: any) => {
+      const players: Player[] = (data.session?.players || []).map((p: any) => ({
+        id: p.playerId,
+        name: p.name,
+        team: p.team as Team,
+        mode: p.mode,
+        sips: p.sips, shots: p.shots, shotguns: p.shotguns,
+        lastDrinkTime: p.lastDrinkTime, lastShotTime: p.lastShotTime, lastShotgunTime: p.lastShotgunTime,
+      }));
+      setGameState(prev => ({ ...prev, players }));
+    });
+
+    return () => {
+      socket.off('frame_update');
+      socket.off('game_over');
+      socket.off('game_started');
+      socket.off('game_paused');
+      socket.off('game_resumed');
+      socket.off('game_reset');
+      socket.off('player_joined');
+      socket.off('player_left');
+    };
+  }, [sessionId]);
 
   // Clear current alert after delay
   useEffect(() => {
@@ -224,73 +215,111 @@ export function useGameEngine() {
     }
   }, [gameState.currentAlert]);
 
-  // Start game
-  const startGame = useCallback(() => {
-    if (gameState.players.length === 0) return;
-    
-    setGameState(prev => ({
-      ...prev,
-      isPlaying: true,
-      isPaused: false,
-    }));
+  const currentFrameData = gameState.frames[gameState.currentFrame] || gameState.frames[0];
 
-    intervalRef.current = setInterval(processFrame, FRAME_INTERVAL * 1000);
-  }, [gameState.players.length, processFrame]);
-
-  // Pause game
-  const pauseGame = useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
+  // Add a player via API
+  const addPlayer = useCallback(async (name: string, team: Team, mode: 'casual' | 'savage' | 'dd') => {
+    if (!sessionId) return;
+    try {
+      const session = await api.addPlayer(sessionId, name, team, mode);
+      const players: Player[] = session.players.map((p: any) => ({
+        id: p.playerId,
+        name: p.name,
+        team: p.team as Team,
+        mode: p.mode,
+        sips: p.sips, shots: p.shots, shotguns: p.shotguns,
+        lastDrinkTime: p.lastDrinkTime, lastShotTime: p.lastShotTime, lastShotgunTime: p.lastShotgunTime,
+      }));
+      setGameState(prev => ({ ...prev, players }));
+    } catch (error) {
+      console.error('Failed to add player:', error);
     }
-    setGameState(prev => ({ ...prev, isPaused: true }));
-  }, []);
+  }, [sessionId]);
 
-  // Resume game
-  const resumeGame = useCallback(() => {
-    setGameState(prev => ({ ...prev, isPaused: false }));
-    intervalRef.current = setInterval(processFrame, FRAME_INTERVAL * 1000);
-  }, [processFrame]);
-
-  // Reset game
-  const resetGame = useCallback(() => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
+  // Remove a player via API
+  const removePlayer = useCallback(async (playerId: string) => {
+    if (!sessionId) return;
+    try {
+      const session = await api.removePlayer(sessionId, playerId);
+      const players: Player[] = session.players.map((p: any) => ({
+        id: p.playerId,
+        name: p.name,
+        team: p.team as Team,
+        mode: p.mode,
+        sips: p.sips, shots: p.shots, shotguns: p.shotguns,
+        lastDrinkTime: p.lastDrinkTime, lastShotTime: p.lastShotTime, lastShotgunTime: p.lastShotgunTime,
+      }));
+      setGameState(prev => ({ ...prev, players }));
+    } catch (error) {
+      console.error('Failed to remove player:', error);
     }
-    lastDrinkTimeRef.current = {};
-    setGameState(prev => ({
-      ...prev,
-      isPlaying: false,
-      isPaused: false,
-      currentFrame: 0,
-      elapsedTime: 0,
-      alerts: [],
-      currentAlert: null,
-      players: prev.players.map(p => ({
-        ...p,
-        sips: 0,
-        shots: 0,
-        shotguns: 0,
-        lastDrinkTime: 0,
-        lastShotTime: 0,
-        lastShotgunTime: 0,
-      })),
-    }));
-  }, []);
+  }, [sessionId]);
 
-  // Skip to next frame
+  // Start game via API (server runs the game loop)
+  const startGame = useCallback(async () => {
+    if (!sessionId || gameState.players.length === 0) return;
+    try {
+      await api.startSession(sessionId);
+      setGameState(prev => ({ ...prev, isPlaying: true, isPaused: false }));
+    } catch (error) {
+      console.error('Failed to start game:', error);
+    }
+  }, [sessionId, gameState.players.length]);
+
+  // Pause game via API
+  const pauseGame = useCallback(async () => {
+    if (!sessionId) return;
+    try {
+      await api.pauseSession(sessionId);
+      setGameState(prev => ({ ...prev, isPaused: true }));
+    } catch (error) {
+      console.error('Failed to pause game:', error);
+    }
+  }, [sessionId]);
+
+  // Resume game via API
+  const resumeGame = useCallback(async () => {
+    if (!sessionId) return;
+    try {
+      await api.resumeSession(sessionId);
+      setGameState(prev => ({ ...prev, isPaused: false }));
+    } catch (error) {
+      console.error('Failed to resume game:', error);
+    }
+  }, [sessionId]);
+
+  // Reset game via API
+  const resetGame = useCallback(async () => {
+    if (!sessionId) return;
+    try {
+      const session = await api.resetSession(sessionId);
+      const players: Player[] = session.players.map((p: any) => ({
+        id: p.playerId,
+        name: p.name,
+        team: p.team as Team,
+        mode: p.mode,
+        sips: 0, shots: 0, shotguns: 0,
+        lastDrinkTime: 0, lastShotTime: 0, lastShotgunTime: 0,
+      }));
+      setGameState(prev => ({
+        ...prev,
+        isPlaying: false,
+        isPaused: false,
+        currentFrame: 0,
+        elapsedTime: 0,
+        alerts: [],
+        currentAlert: null,
+        players,
+      }));
+      setWinProbDelta(0);
+    } catch (error) {
+      console.error('Failed to reset game:', error);
+    }
+  }, [sessionId]);
+
+  // Skip frame - not supported server-side, no-op
   const skipFrame = useCallback(() => {
-    processFrame();
-  }, [processFrame]);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-      }
-    };
+    // Server controls frame advancement
   }, []);
 
   return {
