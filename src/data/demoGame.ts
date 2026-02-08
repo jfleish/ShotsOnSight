@@ -53,19 +53,21 @@ export const DEMO_GAME: GameFrame[] = [
   { t: 600, quarter: 4, clock: 0, home: 27, away: 24, down: 1, distance: 10, yardline: 0, possession: 'home', event: 'game_end', win_prob: 1.00, description: "FIELD GOAL! SEAHAWKS WIN SUPER BOWL LX!" },
 ];
 
-// Team info
+// Team info with ESPN logo URLs
 export const TEAMS = {
   home: {
     name: 'Seahawks',
     city: 'Seattle',
     abbreviation: 'SEA',
     color: 'team-home',
+    logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/sea.png',
   },
   away: {
     name: 'Patriots',
     city: 'New England',
     abbreviation: 'NE',
     color: 'team-away',
+    logo: 'https://a.espncdn.com/i/teamlogos/nfl/500/ne.png',
   },
 } as const;
 
